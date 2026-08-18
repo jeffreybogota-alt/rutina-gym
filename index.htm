@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rutina Jeffrey Garzón · Guía de entrenamiento</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --azul:#0D47A1;--azul-m:#1976D2;--azul-c:#E3F2FD;
+  --verde:#1B5E20;--verde-m:#2E7D32;--verde-c:#E8F5E9;
+  --rojo:#B71C1C;--rojo-c:#FFEBEE;
+  --naranja:#E65100;--naranja-c:#FFF3E0;
+  --morado:#4527A0;--morado-c:#EDE7F6;
+  --teal:#00695C;--teal-c:#E0F2F1;
+  --gris:#37474F;--gris-c:#ECEFF1;
+  --bg:#F0F4F8;--card:#fff;--text:#1C2833;--muted:#607D8B;
+  --r:16px;--sh-s:0 2px 8px rgba(0,0,0,.07);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--text);max-width:480px;margin:0 auto;padding-bottom:40px}
+
+.hdr{background:linear-gradient(135deg,#0D47A1 0%,#1565C0 55%,#00838F 100%);padding:22px 20px 26px;position:relative;overflow:hidden}
+.hdr::before{content:'🧭';position:absolute;font-size:130px;right:-18px;top:-12px;opacity:.08}
+.hdr-label{font-size:10px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:3px}
+.hdr h1{font-family:'Bebas Neue',sans-serif;font-size:30px;color:#fff;letter-spacing:1px;line-height:1.1}
+.hdr h1 span{color:#80DEEA}
+.hdr-sub{font-size:11px;color:rgba(255,255,255,.78);font-weight:700;margin-top:6px;line-height:1.5}
+.dx{display:inline-block;margin-top:10px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:30px;padding:5px 14px;font-size:11px;font-weight:800;color:#fff}
+
+.alert{background:#B71C1C;color:#fff;padding:10px 16px;font-size:12px;font-weight:800;display:flex;gap:8px;align-items:center;line-height:1.4}
+.disclaimer{background:#FFF8E1;border-bottom:2px solid #FFE082;color:#5D4037;padding:10px 16px;font-size:10.5px;font-weight:700;line-height:1.5;display:flex;gap:8px;align-items:flex-start}
+.disclaimer strong{color:#BF360C}
+
+.tabs{display:flex;overflow-x:auto;background:#fff;border-bottom:2px solid var(--gris-c);scrollbar-width:none;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:12px 14px;font-family:'Nunito',sans-serif;font-size:12px;font-weight:800;border:none;background:transparent;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:3px solid transparent}
+.tab.on{color:var(--azul);border-bottom-color:var(--azul)}
+.tab:focus-visible{outline:3px solid var(--azul-m);outline-offset:-3px}
+
+.content{padding:14px}
+.sec{display:none}.sec.on{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh-s);margin-bottom:12px;overflow:hidden}
+.stats{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.sbox{flex:1;min-width:80px;background:var(--card);border-radius:12px;padding:10px;text-align:center;box-shadow:var(--sh-s)}
+.snum{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--azul);line-height:1}
+.slbl{font-size:9.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+.info{background:var(--azul-c);border-left:4px solid var(--azul-m);border-radius:12px;padding:12px 14px;font-size:12px;font-weight:700;line-height:1.6;margin-bottom:12px;color:#0D3C6E}
+.info.verde{background:var(--verde-c);border-left-color:var(--verde-m);color:#14401A}
+.info.naranja{background:var(--naranja-c);border-left-color:var(--naranja);color:#5D2A00}
+.info.rojo{background:var(--rojo-c);border-left-color:var(--rojo);color:#6B1414}
+.info.teal{background:var(--teal-c);border-left-color:var(--teal);color:#00443C}
+.info.morado{background:var(--morado-c);border-left-color:var(--morado);color:#2E1A66}
+.info b{font-weight:900}
+.info ul,.info ol{margin:6px 0 0 18px}
+.info li{margin-bottom:5px}
+
+.week{background:#fff;border-radius:var(--r);box-shadow:var(--sh-s);padding:12px 14px;font-size:12px;font-weight:700;line-height:1.9;margin-bottom:12px}
+.week .d{display:inline-block;min-width:38px;font-weight:900;color:var(--azul)}
+.week .off{color:var(--muted)}
+
+.dayhdr{width:100%;display:flex;align-items:center;gap:10px;padding:13px 14px;background:#fff;border:none;text-align:left;cursor:pointer;font-family:'Nunito',sans-serif}
+.dayhdr:focus-visible{outline:3px solid var(--azul-m);outline-offset:-3px}
+.chip{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;color:#fff;background:var(--azul);border-radius:9px;padding:5px 9px;line-height:1}
+.chip.v{background:var(--verde-m)}.chip.n{background:var(--naranja)}.chip.m{background:var(--morado)}.chip.g{background:var(--gris)}
+.daytit{flex:1}
+.daytit b{display:block;font-size:13.5px;font-weight:900;line-height:1.25}
+.daytit span{display:block;font-size:10.5px;font-weight:700;color:var(--muted);margin-top:2px}
+.arrow{font-size:13px;color:var(--muted);transition:transform .2s}
+.dayhdr.on .arrow{transform:rotate(180deg)}
+.daybody{display:none;padding:0 14px 14px;border-top:1px solid var(--gris-c)}
+.daybody.on{display:block}
+.zona{display:inline-block;font-size:10px;font-weight:900;color:#fff;background:var(--gris);border-radius:20px;padding:5px 11px;margin-top:12px}
+
+.block{margin-top:14px}
+.blocktit{font-size:11px;font-weight:900;letter-spacing:.6px;text-transform:uppercase;color:var(--azul);background:var(--azul-c);border-radius:8px;padding:8px 10px;margin-bottom:10px}
+.blocktit.v{color:var(--verde);background:var(--verde-c)}
+.blocktit.n{color:var(--naranja);background:var(--naranja-c)}
+.blocktit.m{color:var(--morado);background:var(--morado-c)}
+.blocktit.t{color:var(--teal);background:var(--teal-c)}
+
+/* ---- tarjeta de ejercicio ---- */
+.exc{border:1px solid #E3E9EE;border-radius:14px;margin-bottom:10px;overflow:hidden;background:#fff}
+.exc.done{border-color:var(--verde-m);background:#F6FFF7}
+.exhd{display:flex;gap:10px;align-items:flex-start;padding:11px 12px}
+.num{font-family:'Bebas Neue',sans-serif;font-size:18px;color:#fff;background:var(--azul);border-radius:8px;min-width:26px;height:26px;display:flex;align-items:center;justify-content:center;line-height:1}
+.exc.done .num{background:var(--verde-m)}
+.exttl{flex:1;min-width:0}
+.exttl b{display:block;font-size:13.5px;font-weight:900;line-height:1.3}
+.serie{display:inline-block;font-size:11px;font-weight:900;color:#fff;background:var(--azul-m);border-radius:20px;padding:3px 10px;margin-top:6px}
+.chk{width:26px;height:26px;border-radius:8px;border:2px solid #CFD8DC;background:#fff;font-size:14px;cursor:pointer;line-height:1;color:var(--verde-m);font-weight:900}
+.chk:focus-visible{outline:3px solid var(--azul-m)}
+
+.foto{margin:0 12px 10px;border-radius:12px;overflow:hidden;background:#EEF3F7}
+.foto img{width:100%;display:block}
+.phbox{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:22px 12px;border:2px dashed #B0BEC5;border-radius:12px;color:var(--muted);font-size:10.5px;font-weight:800;text-align:center;line-height:1.5}
+.phbox .cam{font-size:26px}
+.phbox code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10px;color:var(--azul);background:#fff;border-radius:6px;padding:2px 6px}
+
+.exbody{padding:0 12px 12px}
+.que{font-size:11.5px;font-weight:700;color:#37474F;background:var(--gris-c);border-radius:10px;padding:9px 11px;line-height:1.55;margin-bottom:10px}
+.que b{color:var(--azul)}
+.pasos{list-style:none;counter-reset:p}
+.pasos li{counter-increment:p;position:relative;padding:0 0 9px 28px;font-size:11.5px;font-weight:600;color:#4A5C68;line-height:1.55}
+.pasos li::before{content:counter(p);position:absolute;left:0;top:0;width:19px;height:19px;border-radius:50%;background:var(--azul-c);color:var(--azul);font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center}
+.pasos li b{color:var(--text);font-weight:900}
+.cue{font-size:11px;font-weight:800;color:var(--naranja);background:var(--naranja-c);border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.5}
+.planb{font-size:11px;font-weight:800;color:var(--morado);background:var(--morado-c);border-radius:10px;padding:8px 10px;margin-top:8px;line-height:1.5}
+.tag{font-size:9px;font-weight:900;color:var(--verde);background:var(--verde-c);border-radius:6px;padding:3px 6px;white-space:nowrap;align-self:center}
+.tag.w{color:var(--naranja);background:var(--naranja-c)}
+.tag.s{color:var(--morado);background:var(--morado-c)}
+.tag.r{color:var(--rojo);background:var(--rojo-c)}
+.tag.u{color:var(--teal);background:var(--teal-c)}
+.rirtab td.n{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--azul)}
+
+.ss{border:2px dashed var(--verde-m);border-radius:14px;padding:10px;margin-bottom:10px;background:#FAFFFA}
+.sslbl{font-size:10.5px;font-weight:900;color:var(--verde);text-transform:uppercase;letter-spacing:.6px;margin-bottom:8px}
+.ssend{font-size:11px;font-weight:800;color:var(--verde);padding-top:4px}
+
+.resume{background:var(--gris-c);border-radius:12px;padding:10px 12px;margin-top:14px;font-size:11.5px;font-weight:800;color:var(--gris);line-height:1.5}
+
+.t2{width:100%;border-collapse:collapse;font-size:11px;font-weight:700}
+.t2 th{background:var(--azul);color:#fff;padding:8px 6px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.4px}
+.t2 td{padding:8px 6px;border-bottom:1px solid var(--gris-c);vertical-align:top;line-height:1.45}
+.t2 tr:nth-child(even) td{background:#F7F9FB}
+.t2 td b{color:var(--azul)}
+
+.gl{padding:11px 14px;border-bottom:1px solid var(--gris-c)}
+.gl:last-child{border-bottom:none}
+.gl b{display:block;font-size:12.5px;font-weight:900;color:var(--azul);margin-bottom:3px}
+.gl span{font-size:11.5px;font-weight:600;color:#4A5C68;line-height:1.55}
+
+.no{padding:11px 14px;border-bottom:1px solid var(--gris-c)}
+.no:last-child{border-bottom:none}
+.no b{display:block;font-size:12.5px;font-weight:900;color:var(--rojo);margin-bottom:3px}
+.no span{display:block;font-size:11.5px;font-weight:600;color:#4A5C68;line-height:1.55}
+.no i{display:block;font-style:normal;font-size:11.5px;font-weight:800;color:var(--verde-m);margin-top:4px}
+
+.step{display:flex;gap:11px;padding:12px 14px;border-bottom:1px solid var(--gris-c)}
+.step:last-child{border-bottom:none}
+.step .n{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--azul);min-width:24px;line-height:1.1}
+.step b{display:block;font-size:12.5px;font-weight:900;margin-bottom:3px}
+.step span{font-size:11.5px;font-weight:600;color:#4A5C68;line-height:1.55}
+
+.code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;background:#263238;color:#B2FF59;border-radius:10px;padding:12px;line-height:1.7;white-space:pre;overflow-x:auto;margin:10px 0}
+.fname{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:10.5px;background:#fff;border:1px solid var(--gris-c);border-radius:6px;padding:2px 6px;color:var(--azul);font-weight:700}
+.ftr{text-align:center;padding:20px 16px 0;font-size:10.5px;font-weight:700;color:var(--muted);line-height:1.7}
+
+/* ---- fases ---- */
+.fase{border-radius:14px;padding:12px 13px;margin:18px 0 12px;color:#fff}
+.fase.f1{background:linear-gradient(135deg,#E65100,#F57C00)}
+.fase.f2{background:linear-gradient(135deg,#0D47A1,#1976D2)}
+.fase.f3{background:linear-gradient(135deg,#00695C,#00897B)}
+.fasehd{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fasenum{font-size:9px;font-weight:900;letter-spacing:1.5px;background:rgba(255,255,255,.22);border-radius:20px;padding:3px 8px}
+.fasehd b{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:.8px;flex:1}
+.fasemin{font-size:10.5px;font-weight:900;background:rgba(255,255,255,.18);border-radius:20px;padding:3px 9px}
+.fasetxt{display:block;font-size:11px;font-weight:700;line-height:1.55;margin-top:7px;color:rgba(255,255,255,.9)}
+.block.f1{border-left:3px solid #F57C00;padding-left:9px;margin-left:2px}
+.block.f2{border-left:3px solid #1976D2;padding-left:9px;margin-left:2px}
+.block.f3{border-left:3px solid #00897B;padding-left:9px;margin-left:2px}
+
+/* ---- progreso ---- */
+.prog{margin:12px 0 4px}
+.progbar{height:7px;background:var(--gris-c);border-radius:20px;overflow:hidden}
+.progbar i{display:block;height:100%;background:linear-gradient(90deg,#2E7D32,#66BB6A);border-radius:20px;transition:width .3s}
+.progtxt{display:block;font-size:10px;font-weight:800;color:var(--muted);margin-top:5px;letter-spacing:.3px}
+
+/* ---- pie de tarjeta: timers ---- */
+.exfoot{display:flex;gap:7px;margin-top:10px}
+.tmr{flex:1;border:1.5px solid #CFD8DC;background:#fff;border-radius:10px;padding:8px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;color:var(--azul);cursor:pointer}
+.tmr:active{background:var(--azul-c)}
+.tmr:focus-visible{outline:3px solid var(--azul-m)}
+
+/* ---- barra flotante de temporizador ---- */
+.timerbar{position:fixed;left:50%;transform:translateX(-50%) translateY(120%);bottom:14px;width:min(452px,calc(100% - 28px));
+  background:#0D47A1;color:#fff;border-radius:16px;padding:12px 16px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 8px 24px rgba(0,0,0,.28);z-index:300;transition:transform .25s}
+.timerbar.on{transform:translateX(-50%) translateY(0)}
+.timerbar.fin{background:#2E7D32}
+.timerbar span.lbl{font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;opacity:.75}
+.timerbar #tnum{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:1px;line-height:1;flex:1}
+.timerbar button{background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:10px;padding:8px 14px;font-family:'Nunito',sans-serif;font-size:11px;font-weight:900;cursor:pointer}
+
+.tag.u{color:var(--teal);background:var(--teal-c)}
+.tag.m2{color:var(--morado);background:var(--morado-c)}
+.tag.r{color:var(--rojo);background:var(--rojo-c)}
+.rirtab td.n{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--azul)}
+
+.fasecard{display:flex;gap:11px;padding:13px 14px;border-bottom:1px solid var(--gris-c)}
+.fasecard:last-child{border-bottom:none}
+.fasecard .ic{font-size:22px}
+.fasecard b{display:block;font-size:13px;font-weight:900;margin-bottom:2px}
+.fasecard .t{font-size:10px;font-weight:900;color:#fff;border-radius:20px;padding:2px 8px;display:inline-block;margin-bottom:5px}
+.fasecard span.dsc{display:block;font-size:11.5px;font-weight:600;color:#4A5C68;line-height:1.55}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-label">Guía paso a paso · 8 semanas</div>
+  <h1>JEFFREY <span>GARZÓN</span></h1>
+  <div class="hdr-sub">4 días/semana · Máx. 75 min · Una zona del gimnasio por día<br>3 fases por sesión · 60-65 min fijos + cierre libre</div>
+  <div class="dx">🩻 Pinzamiento subacromial · desgarro parcial</div>
+</header>
+
+<div class="alert">⚠️ Dolor mayor a 3/10 en el hombro = se detiene el ejercicio, no se negocia.</div>
+
+<div class="disclaimer">ℹ️<div><strong>Importante:</strong> esta rutina es una guía de apoyo. Debe ser revisada por tu fisioterapeuta o médico tratante antes de iniciar y ajustada según tu evolución y tu control de presión arterial. Si un movimiento genera dolor agudo, punzante o creciente de un día a otro, suspéndelo y consulta.</div></div>
+
+<nav class="tabs" id="tabs">
+  <button class="tab on" data-s="primera">🧭 Primera vez</button>
+  <button class="tab" data-s="estructura">🧩 Estructura</button>
+  <button class="tab" data-s="plan">📅 Plan</button>
+  <button class="tab" data-s="dias">🏋️ Días</button>
+  <button class="tab" data-s="ocupada">🔁 Máquina ocupada</button>
+  <button class="tab" data-s="intensidad">🎯 Intensidad</button>
+  <button class="tab" data-s="hombro">🦴 Hombro</button>
+  <button class="tab" data-s="cardio">🚴 Cardio y peso</button>
+  <button class="tab" data-s="prog">📈 Progresión</button>
+  <button class="tab" data-s="evitar">🚫 Evitar</button>
+  <button class="tab" data-s="fotos">🖼️ Poner fotos</button>
+  <button class="tab" data-s="glos">📖 Glosario</button>
+</nav>
+
+<main class="content">
+<section class="sec on" id="primera">
+  <div class="info">👋 <b>Antes de tocar una máquina.</b> Esta pestaña asume que nadie te ha explicado nada del gimnasio. Léela una vez completa; después no la necesitarás más.</div>
+
+  <div class="card">
+    <div class="step"><div class="n">1</div><div><b>Serie, repetición y descanso</b><span>Una <b>repetición</b> es hacer el movimiento una vez. Una <b>serie</b> es un grupo de repeticiones seguidas. Cuando ves "3 × 12" significa 3 series de 12 repeticiones. Entre serie y serie descansas lo que indique la tarjeta (normalmente 60 o 90 segundos) y aprovechas para respirar y anotar el peso.</span></div></div>
+    <div class="step"><div class="n">2</div><div><b>Cómo se ajusta una máquina</b><span>Casi todas tienen una palanca o un pin al lado del asiento. La regla general: al sentarte, la articulación que se mueve (rodilla, hombro, codo) debe quedar a la altura del eje de giro de la máquina. Si algo te queda torcido o muy estirado, no fuerces: baja o sube el asiento hasta que el movimiento se sienta natural.</span></div></div>
+    <div class="step"><div class="n">3</div><div><b>Cómo se pone el peso</b><span>En las máquinas de placas hay una torre de pesas con un pin metálico: lo sacas y lo metes en el número que quieras. En las de discos, se cargan discos a cada lado, siempre igual de un lado que del otro.</span></div></div>
+    <div class="step"><div class="n">4</div><div><b>Cuánto peso pongo la primera vez</b><span>Empieza bajo a propósito. Haz una serie de prueba de 12 repeticiones: si terminas y sientes que podías hacer 6 más, sube un escalón. El punto correcto es terminar la serie sintiendo que podías hacer <b>2 o 3 más</b>, nunca al límite. Anota ese número: la próxima sesión ya no adivinas. En la pestaña <b>🎯 Intensidad</b> está explicado con detalle por qué nunca llegas al límite.</span></div></div>
+    <div class="step"><div class="n">5</div><div><b>Cómo se respira</b><span>Exhalas (sueltas el aire) en la parte de esfuerzo, e inhalas al regresar. Nunca aguantes el aire: en tu caso, con presión arterial en control, esa es la regla más importante de todas.</span></div></div>
+    <div class="step"><div class="n">6</div><div><b>Compartir máquina sin drama</b><span>Se puede preguntar: "¿te faltan muchas series?" o "¿puedo entrar contigo?". Entrar contigo significa que tú haces tu serie mientras el otro descansa. Es normal y nadie se molesta. Si te da pereza, usa tu superserie o el reemplazo de la pestaña 🔁.</span></div></div>
+    <div class="step"><div class="n">7</div><div><b>Reglas de convivencia</b><span>Limpia el asiento con la toalla al terminar, devuelve las mancuernas a su sitio, no dejes discos puestos y no ocupes una máquina mirando el celular entre series.</span></div></div>
+    <div class="step"><div class="n">8</div><div><b>Qué llevar</b><span>Toalla, botella de agua, calzado deportivo cerrado y el celular con esta guía. Nada más.</span></div></div>
+  </div>
+
+  <div class="info verde">
+    🗺️ <b>Cómo se lee cada día de esta rutina, en orden:</b>
+    <ol>
+      <li>Bloque de <b>hombro</b> (10 min) — siempre primero</li>
+      <li>Bloque de <b>fuerza</b> de la zona del día (~40 min)</li>
+      <li>Bloque de <b>core</b> / abdomen (6 min)</li>
+      <li>Bloque de <b>cardio</b> de cierre (15-18 min)</li>
+    </ol>
+    Cada ejercicio trae: qué es y para qué sirve, el paso a paso, cuántas series, y qué hacer si la máquina está ocupada. Marca el ✓ cuando lo termines.
+  </div>
+
+  <div class="info rojo">
+    🛑 <b>Cuándo parar, siempre:</b> dolor punzante en el hombro, mareo, dolor de cabeza, visión borrosa, dolor en el pecho o falta de aire que no cede al descansar. Parar no es fallar: es lo que te permite volver el jueves.
+  </div>
+</section><section class="sec" id="estructura">
+  <div class="info">🧩 <b>Toda sesión tiene tres fases, siempre en el mismo orden.</b> Saber en qué fase estás es lo que evita el error más común del gimnasio: llegar cansado a lo importante, o irse sin la parte que protege las articulaciones.</div>
+
+  <div class="card">
+    <div class="fasecard"><div class="ic">🔥</div><div><span class="t" style="background:#E65100">FASE 1 · 13-15 MIN</span><b>Calentamiento</b><span class="dsc">5 minutos de cardio suave, 2-3 de movilidad articular y 6-7 de activación de hombro. No suma fuerza: prepara el cuerpo para poder aplicarla. <b>Es la fase que nunca se recorta</b>, ni por falta de tiempo ni por sentirte "ya caliente".</span></div></div>
+    <div class="fasecard"><div class="ic">🏋️</div><div><span class="t" style="background:#0D47A1">FASE 2 · 45-50 MIN</span><b>Bloque central</b><span class="dsc">El trabajo de fuerza de la zona del día más el core. Aquí está el estímulo que cambia tu composición corporal. Empieza por el ejercicio principal (el más pesado) y termina en los accesorios y las superseries.</span></div></div>
+    <div class="fasecard"><div class="ic">🧘</div><div><span class="t" style="background:#00695C">FASE 3 · 20-28 MIN · LIBRE</span><b>Cierre</b><span class="dsc">15-20 minutos de cardio y 5-8 de estiramientos. El tiempo aquí es flexible: son mínimos sugeridos y puedes extender el cardio si el día lo permite. Lo que no es negociable es que exista.</span></div></div>
+  </div>
+
+  <div class="info verde">
+    ⏱️ <b>Cuenta total:</b> de la fase 1 al final de la fase 2 hay <b>60-65 minutos</b>. Ese es el bloque fijo, el que debes poder cumplir siempre. La fase 3 se suma encima según el tiempo que tengas: entre 20 y 28 minutos si vas completo, o 12-15 si vas corto.
+  </div>
+
+  <div class="info naranja">
+    ✂️ <b>Si un día solo tienes 45 minutos:</b> haz la fase 1 completa (no se toca), en la fase 2 quita <b>una serie de cada ejercicio</b> y salta el bloque de core, y cierra con 10 minutos de cardio y los estiramientos. Nunca resuelvas la falta de tiempo saltándote el calentamiento o el cierre: recorta por el medio.
+  </div>
+
+  <div class="info morado">
+    ⚡ <b>Las superseries y el core viven en la fase 2.</b> Cada día tiene dos superseries de <b>una sola máquina</b>: el segundo ejercicio siempre es mancuerna, barra, pared, colchoneta o core. Así el abdomen se entrena dentro del tiempo de descanso y no alarga la sesión.
+  </div>
+
+  <div class="card">
+    <div class="gl"><b>¿Por qué el calentamiento va antes del hombro y no al revés?</b><span>Los tejidos fríos responden peor y el manguito rotador es tejido pequeño y delicado. Cinco minutos de cardio suave suben la temperatura general; solo entonces tiene sentido el trabajo específico de hombro.</span></div>
+    <div class="gl"><b>¿Por qué el cardio va al final y no al principio?</b><span>Si haces cardio primero llegas cansado a la fuerza, levantas menos y con peor técnica, justo cuando el hombro necesita precisión. Al final, además, entras al cardio con el metabolismo ya activado.</span></div>
+    <div class="gl"><b>¿Por qué los estiramientos van al final y no antes?</b><span>Estirar en frío o antes de levantar peso reduce temporalmente la fuerza y no previene lesiones. Al final, con el músculo caliente, sí devuelve rango de movimiento — y en tu caso el estiramiento pectoral es parte del tratamiento del hombro, no un adorno.</span></div>
+    <div class="gl"><b>¿Por qué el ejercicio principal va primero en la fase 2?</b><span>Es el que más peso mueve y más técnica exige. Hacerlo fresco es más seguro y produce más estímulo. Los accesorios toleran bien la fatiga; el principal, no.</span></div>
+  </div>
+</section>
+<section class="sec" id="plan">
+  <div class="stats">
+    <div class="sbox"><div class="snum">4</div><div class="slbl">Días gym</div></div>
+    <div class="sbox"><div class="snum">1</div><div class="slbl">Zona por día</div></div>
+    <div class="sbox"><div class="snum">65</div><div class="slbl">Min fijos</div></div>
+    <div class="sbox"><div class="snum">8</div><div class="slbl">Semanas</div></div>
+  </div>
+
+  <div class="week">
+    <div><span class="d">Lun</span> · <b>Día A</b> — 🦵 Pierna (cuádriceps)</div>
+    <div><span class="d">Mar</span> · <b>Día B</b> — 🎣 Espalda y bíceps</div>
+    <div class="off"><span class="d">Mié</span> · Descanso o caminata 30-40 min</div>
+    <div><span class="d">Jue</span> · <b>Día C</b> — 🍑 Glúteo, isquios y pantorrilla</div>
+    <div class="off"><span class="d">Vie</span> · Descanso (o mueve aquí el Día D)</div>
+    <div><span class="d">Sáb</span> · <b>Día D</b> — 🫱 Pecho, hombro y tríceps</div>
+    <div class="off"><span class="d">Dom</span> · Descanso total</div>
+  </div>
+
+  <div class="info">📍 <b>La regla del gimnasio lleno:</b> cada día vive en <b>una sola zona</b>. Entras, te instalas y no te mueves. Lo único que puede estar en otro sitio es la máquina de cardio del cierre, y esa va al final.</div>
+
+  <div class="info verde">🔁 <b>Superseries de una sola máquina.</b> Las 8 superseries del programa están armadas con la misma regla: <b>solo el ejercicio A1 (o B1) ocupa una máquina</b>; el segundo siempre es mancuerna, barra, pared o suelo. Nunca necesitas dos máquinas libres al mismo tiempo, y si la máquina está tomada empiezas por la pareja libre.</div>
+
+  <div class="info morado">⚖️ <b>Trabajo unilateral incluido a propósito.</b> Cada día tiene al menos un ejercicio de un lado a la vez (zancada, remo con mancuerna, puente a una pierna, kickback). Después de meses cuidando un hombro casi siempre hay diferencia entre un lado y el otro: entrenar por separado es la única forma de que el lado fuerte no siga tapando al débil. Detalle en la pestaña 🎯 Intensidad.</div>
+
+  <div class="info naranja">🦴 <b>El bloque de hombro es portátil.</b> Solo necesita una pared, un banco y una mancuerna de 1-3 kg: lo haces en la misma zona donde entrenes ese día. Sigue yendo primero, 10 minutos, los 4 días.</div>
+
+  <div class="info teal">⏱️ <b>Tres fases, siempre en el mismo orden:</b> <b>🔥 Calentamiento</b> 13-15 min → <b>🏋️ Bloque central</b> 45-50 min → <b>🧘 Cierre</b> 20-28 min libres. De la fase 1 al final de la fase 2 hay <b>60-65 minutos fijos</b>; el cierre se suma encima según el tiempo que tengas. Todo está explicado en la pestaña 🧩 Estructura.</div>
+</section>
+<section class="sec" id="dias"></section>
+<section class="sec" id="ocupada">
+  <div class="info verde">🔁 <b>Regla de oro en gimnasio lleno:</b> nunca esperes de pie. Si la máquina está tomada, haces la pareja libre de la superserie y vuelves. Si tampoco se libera después de dos rondas, usa el reemplazo de esta tabla y sigue con tu tiempo.</div>
+
+  <div class="card">
+    <table class="t2">
+      <tr><th>Si está ocupada</th><th>Haces esto en su lugar</th></tr>
+      <tr><td><b>Leg press</b></td><td>Sentadilla goblet con mancuerna al pecho, codos abajo · 4 × 12</td></tr>
+      <tr><td><b>Leg extension</b></td><td>Sentadilla isométrica en pared · 3 × 40 seg</td></tr>
+      <tr><td><b>Leg curl</b></td><td>Peso muerto rumano con mancuernas ligeras · 4 × 12</td></tr>
+      <tr><td><b>Patada de glúteo</b></td><td>Elevación de cadera en el suelo, o a una pierna · 3 × 15</td></tr>
+      <tr><td><b>Abducción de cadera</b></td><td>Zancada lateral con peso corporal · 3 × 12 c/lado</td></tr>
+      <tr><td><b>Talones sentado</b></td><td>Elevación de talones de pie en un step · 3 × 25</td></tr>
+      <tr><td><b>Jalón dorsal</b></td><td>Remo con mancuerna apoyado en banco, codo pegado · 4 × 12 c/lado</td></tr>
+      <tr><td><b>Remo en máquina</b></td><td>Low row en polea con agarre neutro, codos bajos · 4 × 12</td></tr>
+      <tr><td><b>Chest press</b></td><td>Flexiones con manos en banco alto, rango corto · 3 × 10</td></tr>
+      <tr><td><b>Aperturas en máquina</b></td><td>Press de tríceps en máquina, y aperturas la próxima ronda</td></tr>
+      <tr><td><b>Polea de tríceps</b></td><td>Patada de tríceps con mancuerna, brazo pegado al costado · 3 × 12 c/brazo</td></tr>
+      <tr><td><b>Crunch en máquina</b></td><td>Dead bug o plancha en colchoneta · 3 × 40 seg</td></tr>
+      <tr><td><b>Todas las de cardio</b></td><td>Caminata en pendiente afuera, o 18 min de escaleras a ritmo suave</td></tr>
+    </table>
+  </div>
+
+  <div class="info naranja">⚠️ <b>Los reemplazos con mancuerna nunca cargan el brazo lesionado por encima de lo necesario.</b> En zancadas y sentadillas unilaterales, lleva una sola mancuerna en la mano sana. En el remo con mancuerna, el codo va pegado al costado, nunca abierto.</div>
+
+  <div class="info">🕐 <b>Truco de horario:</b> las zonas de pierna suelen despejarse antes que las de pecho y jalones. Si tu gimnasio está a reventar justo a tu hora, mueve los días A y C a las horas pico y deja B y D para los ratos más tranquilos.</div>
+</section><section class="sec" id="intensidad">
+  <div class="info">🎯 <b>Dos preguntas que faltaban:</b> ¿hasta dónde hay que apretar cada serie? y ¿por qué hay ejercicios de un solo lado? Las dos tienen respuesta clara en tu caso concreto.</div>
+
+  <div class="info rojo">
+    🛑 <b>En tu programa NO se entrena al fallo.</b> "Llegar al fallo" es hacer repeticiones hasta que físicamente no sale ni una más. Es una herramienta válida en otras personas, pero en tu caso está descartada por tres razones concretas:
+    <ul>
+      <li><b>Presión arterial.</b> Las últimas repeticiones antes del fallo son las que más disparan la presión, sobre todo porque casi nadie logra seguir respirando bien en ese momento.</li>
+      <li><b>El hombro.</b> Cuando el músculo se agota, la técnica se rompe: el hombro se encoge, el codo se abre, el omóplato deja de sostener. Es exactamente el gesto que produce el pinzamiento.</li>
+      <li><b>Recuperación.</b> Con 4 sesiones semanales, llegar al fallo en todo te deja sin capacidad de entrenar bien el día siguiente. Rinde más acumular buenas series que destruir una.</li>
+    </ul>
+  </div>
+
+  <div class="info verde">
+    ✅ <b>Lo que sí usamos: repeticiones en reserva (RIR).</b> Es cuántas repeticiones te habrían sobrado al terminar la serie. Si haces 12 y sentías que podías hacer 2 más, eso es RIR 2. Es la forma de medir el esfuerzo sin llegar nunca al límite.
+  </div>
+
+  <div class="card">
+    <table class="t2 rirtab">
+      <tr><th>Bloque</th><th>Reserva objetivo</th><th>Cómo se siente</th></tr>
+      <tr><td><b>Hombro</b> (rotación externa, scaption, face pull)</td><td class="n">RIR 4-5</td><td>Terminas cómodo. Aquí se busca control y calidad, jamás fatiga.</td></tr>
+      <tr><td><b>Principal del día</b> (prensa, jalón, leg curl, chest press)</td><td class="n">RIR 2-3</td><td>Las últimas 2 repeticiones cuestan, pero la técnica no cambia.</td></tr>
+      <tr><td><b>Accesorios</b> (extensiones, abducción, curls, tríceps)</td><td class="n">RIR 1-2</td><td>Puedes apretar más porque el riesgo es menor. Aun así, siempre sobra una.</td></tr>
+      <tr><td><b>Core y peso corporal</b></td><td class="n">RIR 2</td><td>Se corta cuando la forma se deteriora, no cuando duele.</td></tr>
+      <tr><td><b>Cardio</b></td><td class="n">5-6/10</td><td>Puedes hablar en frases cortas. Solo el jueves sube a 7 en los picos.</td></tr>
+    </table>
+  </div>
+
+  <div class="info naranja">
+    🔍 <b>Cómo saber tu RIR sin adivinar:</b> a mitad de la serie pregúntate "¿cuántas más podría hacer si tuviera que hacerlas?". Si la respuesta a las 12 repeticiones es "unas 5", el peso está bajo: sube. Si es "ninguna", el peso está alto: baja. Al principio te equivocarás, y está bien: en 3 o 4 sesiones le tomas el punto.
+  </div>
+
+  <div class="info rojo">
+    ⛔ <b>Señales de que te pasaste de intensidad, aunque no llegaras al fallo:</b> aguantaste la respiración, el hombro se encogió hacia la oreja, la cadera se despegó del asiento, usaste impulso con el tronco, o la última repetición se ve distinta a la primera. Cualquiera de esas: baja el peso en la siguiente serie, no en la siguiente semana.
+  </div>
+
+  <div class="info morado">
+    ⚖️ <b>Trabajo unilateral: por qué está y dónde.</b> Unilateral significa entrenar un lado a la vez. En una máquina de dos brazos, el lado fuerte compensa al débil sin que tú lo notes, y la diferencia se mantiene durante años. Después de meses cuidando un hombro, tú casi con seguridad tienes esa diferencia.
+    <ul>
+      <li><b>Día A ·</b> Zancada hacia adelante</li>
+      <li><b>Día B ·</b> Remo con mancuerna a un brazo · curl martillo alterno</li>
+      <li><b>Día C ·</b> Puente de glúteo a una pierna · zancada hacia atrás</li>
+      <li><b>Día D ·</b> Patada de tríceps con mancuerna</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="gl"><b>Regla 1 · Empieza siempre por el lado débil</b><span>En tu caso, el lado del hombro lesionado en tren superior y la pierna que menos puedes en tren inferior. Ese lado marca el peso y las repeticiones.</span></div>
+    <div class="gl"><b>Regla 2 · Iguala repeticiones, no esfuerzo</b><span>Si el lado débil hizo 9 repeticiones limpias, el lado fuerte hace 9, aunque te sobre fuerza. Si no, la brecha nunca se cierra.</span></div>
+    <div class="gl"><b>Regla 3 · Nunca cargues el brazo lesionado por simetría</b><span>En zancadas y sentadillas a una pierna, la mancuerna va <b>en la mano sana</b>. La pierna no distingue de dónde viene el peso; el hombro sí.</span></div>
+    <div class="gl"><b>Regla 4 · Anota los dos lados por separado</b><span>En tu registro pon "12/9" en vez de "12". Cuando los dos números se igualen durante tres sesiones seguidas, ese desbalance quedó resuelto.</span></div>
+    <div class="gl"><b>Qué diferencia es normal</b><span>Hasta un 10% entre lados es habitual y no requiere nada especial. Por encima de eso, mantén el trabajo unilateral y coméntalo con tu fisioterapeuta, sobre todo si la diferencia es en el hombro.</span></div>
+  </div>
+
+  <div class="info">
+    🩺 <b>Criterio de fondo.</b> Este programa está construido con la lógica de una rehabilitación avanzada, no de un plan de gimnasio genérico: el objetivo de las 8 semanas es acumular volumen de calidad con articulaciones sanas, no descubrir cuánto peso máximo mueves. La fuerza máxima vendrá después, con el alta de tu fisioterapeuta.
+  </div>
+</section><section class="sec" id="hombro">
+  <div class="info">
+    🦴 <b>Dónde estás ahora.</b> El pinzamiento subacromial ocurre cuando el espacio entre la cabeza del húmero y el acromion se reduce y el tendón queda atrapado al elevar el brazo. Como ya evolucionaste bien, el objetivo cambia: ya no es solo calmar, es <b>mantener abierto ese espacio</b> mientras cargas el resto del cuerpo. Eso se consigue con dos cosas: rotadores externos fuertes y un omóplato que se mueva bien.
+  </div>
+
+  <div class="card">
+    <div class="gl"><b>1. El hombro siempre va primero</b><span>10 minutos al inicio de cada una de las 4 sesiones. Es poco tiempo, pero son 4 veces por semana: eso es lo que sostiene lo ganado. Cansado y al final, la técnica falla.</span></div>
+    <div class="gl"><b>2. Los codos, por debajo de la línea del hombro</b><span>Es la regla que resume casi todos los "prohibidos": jalones, remos, press y estiramientos se hacen con los codos bajos y cerca del cuerpo. Ahí el tendón no se pellizca.</span></div>
+    <div class="gl"><b>3. Elevar sí, pero en diagonal y con el pulgar arriba</b><span>El scaption (30-45° hacia adelante, pulgares arriba) es la forma segura de elevar el brazo. Subir recto por el costado con peso es lo que reproduce el pinzamiento.</span></div>
+    <div class="gl"><b>4. El termómetro es el día siguiente</b><span>Molestia leve durante el ejercicio que desaparece al terminar: aceptable. Dolor que aparece o aumenta al día siguiente: bajaste mal el peso o subiste demasiado. Retrocede un escalón.</span></div>
+  </div>
+
+  <div class="info naranja">
+    📅 <b>Qué entra en el mes 2 (semanas 5-8), si el mes 1 va sin dolor:</b>
+    <ul>
+      <li>Elevaciones laterales en máquina con rango limitado (Día D)</li>
+      <li>Rotación interna muy ligera en polea, 2 × 12, al final del bloque de hombro del Día B</li>
+      <li>Más carga en chest press y en jalón, manteniendo el mismo recorrido corto</li>
+    </ul>
+    Si aparece dolor, se retira lo último que se añadió y se vuelve al esquema del mes 1 durante dos semanas.
+  </div>
+</section><section class="sec" id="cardio">
+  <div class="info teal">
+    🎯 <b>Tu objetivo de composición, no de báscula.</b> Con 81 kg y 32,3 kg de masa muscular, la meta no es "pesar menos" a secas: es perder grasa <b>conservando el músculo</b>. Por eso la rutina tiene 4 días de fuerza y no 4 días de cardio: la fuerza es la que le dice al cuerpo que no gaste el músculo.
+  </div>
+
+  <div class="card">
+    <table class="t2">
+      <tr><th>Dato</th><th>Referencia orientativa</th></tr>
+      <tr><td><b>Metabolismo basal</b></td><td>~1670 kcal</td></tr>
+      <tr><td><b>Gasto diario estimado</b></td><td>~2200-2400 kcal con 4 sesiones + caminatas</td></tr>
+      <tr><td><b>Déficit sugerido</b></td><td>~350-450 kcal/día (pérdida de 0,4-0,6 kg por semana)</td></tr>
+      <tr><td><b>Proteína</b></td><td>~1,6 g por kg → unos 125-135 g al día, repartidos</td></tr>
+      <tr><td><b>Pasos</b></td><td>8.000-10.000 diarios, también los días de descanso</td></tr>
+    </table>
+  </div>
+  <div class="info naranja">⚠️ Estas cifras son una referencia general, no un plan nutricional. Para ajustar comidas y sodio (importante con hipertensión), lo correcto es una valoración con nutricionista.</div>
+
+  <div class="info rojo">
+    ❤️ <b>Presión arterial: 5 reglas no negociables</b>
+    <ul>
+      <li><b>Nunca aguantes la respiración.</b> Exhala en el esfuerzo, inhala al regresar. La maniobra de Valsalva dispara la presión de golpe.</li>
+      <li><b>Nada de series al fallo absoluto</b> ni de intentos de 1 repetición máxima. Termina cada serie con 2 repeticiones "en el tanque".</li>
+      <li><b>Nunca saltes el calentamiento ni la vuelta a la calma.</b> Los últimos minutos de cardio deben ser suaves, no un frenazo.</li>
+      <li><b>Descansos de 90 segundos</b> en los ejercicios pesados. Que la respiración se normalice antes de la siguiente serie.</li>
+      <li><b>Detente y consulta</b> si aparece dolor de cabeza, mareo, visión borrosa, dolor en el pecho o falta de aire desproporcionada.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="gl"><b>Cómo medir el esfuerzo sin pulsómetro</b><span>Test del habla. En 5-6/10 puedes hablar con frases cortas; en 7/10 solo palabras sueltas. La mayor parte del cardio debe estar en 5-6, y solo los picos del jueves llegan a 7.</span></div>
+    <div class="gl"><b>Por qué el cardio va al final</b><span>Si haces cardio primero, llegas cansado a la fuerza y levantas menos, con peor técnica, justo cuando el hombro necesita precisión. Al final, además, aprovechas el trabajo de fuerza ya hecho.</span></div>
+    <div class="gl"><b>Rotación recomendada de máquinas</b><span>Lunes spinning · martes remo + caminadora · jueves elíptica · sábado caminadora en pendiente. Variar reparte la carga entre articulaciones y evita el aburrimiento.</span></div>
+  </div>
+</section><section class="sec" id="prog">
+  <div class="info">📈 <b>Regla simple:</b> si completas todas las repeticiones con buena técnica dos sesiones seguidas y al día siguiente no hay dolor, sube un escalón de peso y vuelve al extremo bajo del rango.</div>
+
+  <div class="card">
+    <table class="t2">
+      <tr><th>Fase</th><th>Hombro</th><th>Pierna y tren superior</th></tr>
+      <tr><td><b>Sem 1-2</b><br>Adaptación</td><td>Bloques 1 y 2 con peso mínimo. Aprender las máquinas nuevas.</td><td>Peso conservador: termina cada serie sintiendo que podías hacer 3 más. Estás calibrando el gimnasio.</td></tr>
+      <tr><td><b>Sem 3-4</b><br>Carga</td><td>Igual, pero con 0,5-1 kg más en scaption y rotación externa si no hubo molestia.</td><td>Entran low row y aperturas en máquina. Sube peso en prensa, curl femoral y jalón.</td></tr>
+      <tr><td><b>Sem 5-6</b><br>Construcción</td><td>Entran elevaciones laterales con rango limitado y rotación interna ligera.</td><td>Rango de 10-12 reps con más peso en los ejercicios principales (prensa, jalón, remo, chest press).</td></tr>
+      <tr><td><b>Sem 7-8</b><br>Consolidación</td><td>Se mantiene. Sin novedades: el hombro consolida lo aprendido.</td><td>Semana 8 más ligera (baja una serie por ejercicio) para recuperar y medir avances.</td></tr>
+    </table>
+  </div>
+
+  <div class="info verde">📝 <b>Registra tu peso en cada ejercicio</b> en una nota del celular: ejercicio, peso, repeticiones y una carita según cómo respondió el hombro. En 8 semanas ese registro vale más que cualquier rutina: te dice exactamente por dónde vas y qué te sentó mal.</div>
+
+  <div class="info rojo">⚠️ <b>Señales para frenar y consultar:</b> dolor que aumenta de un día a otro, chasquido con dolor, pérdida de fuerza o de rango de movimiento, u hombro que "se queda dormido". Ante cualquiera, no avances y habla con tu fisioterapeuta.</div>
+</section><section class="sec" id="evitar">
+  <div class="card">
+    <div class="no"><b>Press militar sentado con barra · cualquier press sobre la cabeza</b><span>Lleva el hombro a la posición de máximo pinzamiento con carga. Es el ejercicio con peor relación beneficio/riesgo para ti.</span><i>✅ En su lugar: scaption "full can" y face pulls.</i></div>
+    <div class="no"><b>Elevaciones frontales con mancuernas</b><span>Elevación recta al frente con el brazo estirado: comprime justo la zona del tendón.</span><i>✅ En su lugar: scaption en diagonal con pulgares arriba.</i></div>
+    <div class="no"><b>Elevaciones laterales pesadas o hasta arriba</b><span>Los últimos grados del recorrido son los que pellizcan.</span><i>✅ En su lugar: máquina, peso bajo, hasta 70-80°, y solo desde la semana 5.</i></div>
+    <div class="no"><b>Jalón al pecho agarre muy ancho, supinado pesado o tras la nuca</b><span>Abre el codo y fuerza rotación: aumenta la tensión sobre el tendón.</span><i>✅ En su lugar: jalón dorsal con agarre neutro o estrecho, codos abajo.</i></div>
+    <div class="no"><b>Press de banca inclinado con barra · press con mancuernas · fondos</b><span>Sobrecargan la parte delantera del hombro y te obligan a estabilizar con el manguito rotador.</span><i>✅ En su lugar: chest press en máquina con recorrido corto.</i></div>
+    <div class="no"><b>Abdominales en fondera (silla romana) · colgarse de barra</b><span>Todo el peso del cuerpo cuelga del hombro. Está fuera del programa por ahora.</span><i>✅ En su lugar: crunch en máquina y dead bug.</i></div>
+    <div class="no"><b>Extensión de codo por encima de la cabeza en polea</b><span>Mantiene el hombro en flexión sostenida mientras el tríceps trabaja. Es una posición que te irrita.</span><i>✅ En su lugar: press de tríceps en máquina y extensión con agarre "V".</i></div>
+    <div class="no"><b>Aperturas inclinadas profundas con mancuernas</b><span>El estiramiento final con peso libre es de los gestos que más provocan recaídas.</span><i>✅ En su lugar: AMS pectorales en máquina con rango parcial.</i></div>
+    <div class="no"><b>Aguantar la respiración al empujar (Valsalva)</b><span>No es un ejercicio, es un hábito: sube la presión arterial de forma brusca en cada serie.</span><i>✅ En su lugar: exhala siempre en la fase de esfuerzo.</i></div>
+    <div class="no"><b>Cualquier ejercicio que duela más de 3/10</b><span>El dolor agudo o creciente es señal de alto, no un obstáculo que se empuja.</span><i>✅ En su lugar: detente, anota qué pasó y consúltalo con tu fisioterapeuta.</i></div>
+  </div>
+</section><section class="sec" id="fotos">
+  <div class="info">🖼️ <b>Cada ejercicio tiene un espacio de foto reservado.</b> Mientras no pongas la imagen, verás un recuadro punteado con el nombre exacto del archivo que hay que crear. Cuando lo pongas, la foto aparece sola: no tienes que tocar el código.</div>
+
+  <div class="card">
+    <div class="step"><div class="n">1</div><div><b>Crea una carpeta llamada <span class="fname">img</span></b><span>Debe quedar <b>al lado</b> del archivo HTML, no dentro de otra carpeta. Así:</span>
+      <div class="code">📁 Mi rutina/
+   📄 rutina.html
+   📁 img/
+       🖼️ pierna-leg-press.jpg
+       🖼️ espalda-jalon.jpg
+       ...</div></div></div>
+    <div class="step"><div class="n">2</div><div><b>Consigue la foto</b><span>Con el celular, tómale una foto a la máquina en el gimnasio (pide permiso si hay gente alrededor y evita que salgan otras personas). También sirve una imagen de internet o una captura de un video.</span></div></div>
+    <div class="step"><div class="n">3</div><div><b>Renómbrala exactamente como dice el recuadro</b><span>El recuadro punteado de cada ejercicio muestra el nombre que espera, por ejemplo <span class="fname">pierna-leg-press.jpg</span>. Todo en minúsculas, con guiones, sin tildes y sin espacios. Si tu foto es .png, cámbiale la extensión al renombrarla o usa la nota del paso 5.</span></div></div>
+    <div class="step"><div class="n">4</div><div><b>Guárdala en la carpeta <span class="fname">img</span> y recarga</b><span>Abre el HTML de nuevo (o presiona F5). La foto aparece en su lugar y el recuadro punteado desaparece. Puedes ir poniéndolas de a poco: las que falten siguen mostrando el recuadro.</span></div></div>
+    <div class="step"><div class="n">5</div><div><b>Si prefieres usar una imagen de internet sin descargarla</b><span>Abre el HTML con el Bloc de notas, busca el nombre del archivo (Ctrl+F) y reemplaza <span class="fname">img/pierna-leg-press.jpg</span> por la dirección web de la imagen, empezando por https. Guarda y listo.</span></div></div>
+  </div>
+
+  <div class="info verde">
+    📐 <b>Recomendaciones para que se vean bien:</b>
+    <ul>
+      <li>Formato horizontal, aproximadamente 800 × 500 píxeles</li>
+      <li>Formato <b>.jpg</b>, menos de 300 KB por imagen (si pesan mucho, el archivo se vuelve lento)</li>
+      <li>Que se vea la máquina completa, no solo un detalle</li>
+      <li>Si puedes, foto de la máquina <b>vacía</b>: se entiende mejor cómo sentarse</li>
+    </ul>
+  </div>
+
+  <div class="info naranja">📋 <b>Lista completa de archivos.</b> Abajo están todos los nombres que el archivo espera, en orden. Los que se repiten en varios días usan la misma imagen: solo necesitas una copia.</div>
+  <div class="card" id="listaimg"></div>
+
+  <div class="info morado">💡 <b>Truco:</b> no intentes conseguir las 30 fotos en un día. Ve al gimnasio con el Día A, fotografía esas 8 máquinas, y así cada semana. En un mes tienes la guía completa y personalizada con las máquinas reales de tu gimnasio.</div>
+</section><section class="sec" id="glos">
+  <div class="card">
+    <div class="gl"><b>Pinzamiento subacromial</b><span>El tendón del manguito rotador queda atrapado entre la cabeza del húmero y el acromion (el techo óseo del hombro) al elevar el brazo. Duele sobre todo entre los 60° y 120° de elevación.</span></div>
+    <div class="gl"><b>Manguito rotador</b><span>Grupo de cuatro músculos que sostienen la cabeza del húmero centrada. Cuando trabajan bien, el espacio subacromial se mantiene abierto.</span></div>
+    <div class="gl"><b>Rotación externa</b><span>Girar el antebrazo hacia afuera con el codo pegado al costado. Es la base de tu programa: los rotadores externos "bajan" la cabeza del húmero y liberan espacio.</span></div>
+    <div class="gl"><b>Scaption / "lata llena"</b><span>Elevar el brazo en diagonal, 30-45° hacia adelante, con el pulgar apuntando arriba. Es el plano en que el hombro trabaja más cómodo.</span></div>
+    <div class="gl"><b>Agarre neutro</b><span>Sujetar con las palmas enfrentadas. Es la posición más amable para el hombro en jalones y remos.</span></div>
+    <div class="gl"><b>Rango parcial / recorrido corto</b><span>Hacer el ejercicio sin llegar al final del movimiento, evitando la zona donde aparece el pinzamiento. Se sigue ganando fuerza, sin el riesgo.</span></div>
+    <div class="gl"><b>Superserie</b><span>Dos ejercicios seguidos sin descanso entre ellos. Se descansa solo al terminar los dos. Sirve para ahorrar tiempo.</span></div>
+    <div class="gl"><b>Tempo lento</b><span>Bajar el peso contando 3-4 segundos. Más estímulo con menos carga: perfecto cuando hay una articulación que cuidar.</span></div>
+    <div class="gl"><b>Maniobra de Valsalva</b><span>Aguantar la respiración y apretar durante el esfuerzo. Dispara la presión arterial: prohibida en tu caso.</span></div>
+    <div class="gl"><b>Esfuerzo percibido (RPE)</b><span>Escala de 1 a 10 sobre cuánto te cuesta. 5-6 es "puedo hablar en frases cortas"; 7 es "solo palabras sueltas".</span></div>
+    <div class="gl"><b>Escápula / omóplato</b><span>El hueso plano de la espalda alta sobre el que se mueve el hombro. Si no se desliza bien, el pinzamiento vuelve.</span></div>
+  </div>
+</section></main>
+
+<div class="timerbar" id="timer" role="status" aria-live="polite">
+  <div><span class="lbl">Descanso</span><div id="tnum">0:00</div></div>
+  <button id="tstop">Detener</button>
+</div>
+
+<footer class="ftr">
+  Rutina personalizada para Jeffrey Garzón · 8 semanas · 4 sesiones · una zona por día<br>
+  Guía de apoyo — no sustituye la valoración de tu fisioterapeuta, médico tratante o nutricionista.
+</footer>
+
+<script>
+
+/* ====== EJERCICIOS REUTILIZABLES DEL HOMBRO ====== */
+var WALL={img:'hombro-wall-slides',nm:'Deslizamientos en la pared (wall slides)',
+ que:'<b>Qué es:</b> un calentamiento sin peso, contra una pared. <b>Para qué sirve:</b> le enseña al omóplato a deslizarse bien, que es lo que abre el espacio del hombro y evita el pinzamiento.',
+ pasos:['Ponte <b>de espaldas a la pared</b>, con cabeza, espalda alta y glúteos tocándola.','Dobla los codos a 90° y apóyalos también en la pared, como el gesto de "manos arriba".','Desliza los brazos hacia arriba <b>sin despegar nada</b> de la pared.','Sube solo hasta donde no aparezca molestia. Ese punto es tu límite del día: respétalo.','Baja despacio a la posición inicial.'],
+ serie:'2 series × 10 repeticiones',tag:'Seguro'};
+var ROTEX={img:'hombro-rotacion-externa',nm:'Rotación externa acostado de lado ⭐',
+ que:'<b>Qué es:</b> un giro corto del antebrazo con una mancuerna muy liviana. <b>Para qué sirve:</b> es el ejercicio más importante de tu programa: fortalece los músculos que bajan la cabeza del hombro y liberan el espacio donde se pellizca el tendón.',
+ pasos:['Acuéstate en un banco o colchoneta <b>sobre el lado sano</b>.','El brazo lesionado queda arriba, con el <b>codo pegado al costado</b> y doblado a 90°.','Pon una toalla enrollada entre el codo y las costillas: te obliga a no despegar el codo.','Con una mancuerna de 1 a 2 kg, gira el antebrazo <b>hacia el techo</b>, como abriendo una puerta.','Baja contando 3 segundos. Nunca dejes caer el peso.'],
+ serie:'3 series × 12 repeticiones · 1-2 kg',tag:'⭐ #1',
+ cue:'🎯 Solo necesitas una mancuerna: hazlo en la misma zona donde vayas a entrenar, sin cruzar el gimnasio.'};
+var RETRA={img:'hombro-retraccion',nm:'Retracción escapular isométrica',
+ que:'<b>Qué es:</b> juntar los omóplatos y sostener, sin mover los brazos. <b>Para qué sirve:</b> activa la espalda alta, que es el soporte sobre el que se apoya el hombro.',
+ pasos:['De pie, brazos relajados a los lados.','Junta los omóplatos hacia <b>atrás y abajo</b>, como si sostuvieras un lápiz entre ellos.','Los hombros no suben hacia las orejas: bajan.','Mantén 5 segundos y suelta despacio. Debes sentirlo entre los omóplatos, nunca en el cuello.'],
+ serie:'3 series × 10 reps × 5 segundos',tag:'Seguro'};
+var PEND={img:'hombro-pendulos',nm:'Péndulos de Codman + wall slides',
+ que:'<b>Qué es:</b> dejar el brazo colgando y moverlo desde la cadera. <b>Para qué sirve:</b> lubrica la articulación y la despierta antes de entrenar, sin que el hombro trabaje.',
+ pasos:['Apoya la mano sana en un banco e inclina el tronco hacia adelante.','El brazo lesionado <b>cuelga totalmente relajado</b>.','Mueve la cadera para que el brazo se balancee solo: no uses el músculo del hombro.','Círculos pequeños hacia un lado 45 segundos y hacia el otro 45 segundos.','Termina con 10 deslizamientos en la pared.'],
+ serie:'90 segundos + 1 × 10',tag:'Seguro'};
+var SCAP={img:'hombro-scaption',nm:'Scaption o "lata llena" (full can)',
+ que:'<b>Qué es:</b> levantar los brazos en diagonal con los pulgares hacia arriba. <b>Para qué sirve:</b> es la única forma segura de entrenar la elevación del brazo cuando hay pinzamiento.',
+ pasos:['De pie, una mancuerna liviana en cada mano, <b>pulgares apuntando hacia arriba</b>.','Levanta los brazos en diagonal hacia adelante, unos 30-45° respecto del cuerpo (no rectos por el costado).','Sube <b>como máximo hasta la altura del hombro</b>, ni un centímetro más.','Baja contando 2 segundos.'],
+ serie:'3 series × 12 repeticiones · 2-3 kg',tag:'Seguro',
+ cue:'🚫 Con los pulgares hacia abajo ("lata vacía") está prohibido: en esa posición el tendón queda pellizcado.'};
+var FACE={img:'hombro-facepull',nm:'Face pull en polea con cuerda',
+ que:'<b>Qué es:</b> jalar una cuerda desde una polea hacia tu cara. <b>Para qué sirve:</b> fortalece la parte de atrás del hombro y corrige la postura adelantada, que es una de las causas del pinzamiento.',
+ pasos:['Coloca la polea <b>a la altura de la cara</b> y engancha la cuerda.','Toma un extremo con cada mano, pulgares hacia arriba, y da un paso atrás.','Jala hacia tu frente manteniendo los <b>codos altos</b>, más arriba que las manos.','Al final abre las manos hacia afuera, separando los extremos de la cuerda.','Vuelve controlando el peso. Los hombros no se encogen en ningún momento.'],
+ serie:'3 series × 15 repeticiones',tag:'Seguro',
+ cue:'🎯 Si molesta en la parte alta del hombro, sube un poco la polea y baja el peso.',
+ planb:'🔁 Si no hay polea libre: rotación externa acostado con mancuerna, 3 × 12.'};
+var DEADBUG={img:'core-deadbug',nm:'Dead bug (bicho muerto)',
+ que:'<b>Qué es:</b> un ejercicio de abdomen en el suelo, boca arriba. <b>Para qué sirve:</b> enseña al abdomen a sostener la espalda baja mientras los brazos y las piernas se mueven. Es el más seguro para tu hombro.',
+ pasos:['Boca arriba, brazos apuntando al techo y rodillas dobladas a 90° en el aire.','Aprieta el abdomen para pegar la <b>espalda baja al suelo</b>: esa presión no se pierde en ninguna repetición.','Baja un brazo hacia atrás y la pierna contraria hacia adelante, sin tocar el suelo.','Vuelve despacio y cambia de lado.'],serie:'3 series × 8 por lado'};
+var PLANCHA={img:'core-plancha',nm:'Plancha frontal sobre codos',
+ que:'<b>Qué es:</b> sostener el cuerpo en línea recta apoyado en codos y puntas de los pies. <b>Para qué sirve:</b> abdomen y espalda baja en una sola posición.',
+ pasos:['Codos en el suelo justo <b>debajo de los hombros</b>.','Apóyate en las puntas de los pies y forma una línea recta de cabeza a talones.','La cadera no sube ni se hunde. Aprieta abdomen y glúteo.','<b>Respira normal</b> todo el tiempo: nunca aguantes el aire.'],
+ serie:'3 series × 30-40 segundos',tag:'Vigila hombro',tagc:'w',
+ cue:'⚠️ Si el hombro molesta, hazla con las <b>rodillas apoyadas</b>. Es igual de válida.'};
+var TALONES={img:'pierna-talones',nm:'Elevación de talones sentado (máquina)',
+ que:'<b>Qué es:</b> subir los talones con un peso apoyado sobre los muslos. <b>Para qué sirve:</b> pantorrilla, sobre todo el músculo profundo (sóleo), que sostiene el tobillo al caminar.',
+ pasos:['Siéntate con las rodillas bajo la almohadilla y la <b>punta de los pies</b> en el apoyo.','Sube los talones lo más alto posible y mantén 1 segundo arriba.','Baja lento, hasta que el talón quede por debajo del nivel del apoyo.'],
+ serie:'3 series × 20 repeticiones',
+ planb:'🔁 Si está ocupada: elevación de talones de pie en un step, 3 × 25, bajando lento.'};
+
+
+/* ====== FASE 1: CALENTAMIENTO GENERAL (igual los 4 días) ====== */
+var CARDIOCAL={img:'calent-cardio-suave',nm:'Cardio suave de entrada',
+ que:'<b>Qué es:</b> 5 minutos muy suaves en bicicleta, elíptica o caminadora. <b>Para qué sirve:</b> sube la temperatura del músculo y la frecuencia cardiaca <b>de forma gradual</b>. Entrar en frío a levantar peso es lo que más lesiones produce, y con hipertensión además evita el salto brusco de presión.',
+ pasos:['Elige la máquina que tengas más cerca: no importa cuál.','Resistencia baja, ritmo cómodo de conversación.','5 minutos exactos. No es entrenamiento, es preparación: no te canses aquí.'],
+ serie:'5 minutos · esfuerzo 3-4/10',tag:'Obligatorio',tagc:'r'};
+var MOVIL={img:'calent-movilidad',nm:'Movilidad articular de pie',
+ que:'<b>Qué es:</b> una secuencia corta de movimientos sin peso. <b>Para qué sirve:</b> lleva cada articulación por su recorrido completo antes de cargarla. Se hace después del cardio suave, nunca antes.',
+ pasos:['<b>Cuello:</b> 5 giros suaves a cada lado.','<b>Hombros:</b> 10 círculos hacia atrás con los brazos relajados, sin forzar la altura.','<b>Cadera:</b> 10 círculos a cada lado con las manos en la cintura.','<b>Rodillas y tobillos:</b> 10 medias sentadillas sin peso y 10 elevaciones de talones.'],
+ serie:'2-3 minutos · sin peso'};
+
+/* ====== FASE 3: ESTIRAMIENTOS DE CIERRE (igual los 4 días) ====== */
+var EST_CUAD={img:'estira-cuadriceps',nm:'Estiramiento de cuádriceps de pie',
+ que:'<b>Qué es:</b> llevar el talón al glúteo sujetando el pie. <b>Para qué sirve:</b> devuelve longitud al muslo después de prensa, extensiones y zancadas.',
+ pasos:['De pie, apóyate con la <b>mano sana</b> en la pared o una máquina.','Dobla una rodilla y sujeta el pie llevando el talón hacia el glúteo.','Rodillas juntas y cadera hacia adelante: ahí aparece el estiramiento.','30 segundos por pierna, respirando tranquilo. Sin rebotes.'],
+ serie:'2 × 30 segundos por pierna'};
+var EST_ISQ={img:'estira-isquios',nm:'Estiramiento de isquiotibiales sentado',
+ que:'<b>Qué es:</b> sentado en el borde de un banco, estiras una pierna al frente. <b>Para qué sirve:</b> la parte de atrás del muslo, que es la que más se acorta con el trabajo de pierna y con las horas sentado.',
+ pasos:['Siéntate en el borde del banco con una pierna estirada al frente y el talón en el suelo.','Espalda recta: inclínate desde la <b>cadera</b>, no redondeando la espalda.','Debes sentirlo en la parte de atrás del muslo, nunca en la rodilla ni en la espalda baja.'],
+ serie:'2 × 30 segundos por pierna'};
+var EST_PECT={img:'pecho-estiramiento',nm:'Estiramiento pectoral en marco de puerta',
+ que:'<b>Qué es:</b> apoyas el antebrazo en un marco y giras el tronco. <b>Para qué sirve:</b> un pecho acortado tira el hombro hacia adelante y cierra el espacio donde se pellizca el tendón. Este estiramiento lo abre. Es el más importante de los tres para ti.',
+ pasos:['Apoya el antebrazo en el marco con el <b>codo a la altura del hombro o más abajo</b>. Nunca por encima.','Gira el tronco despacio hasta sentir estiramiento <b>en el pecho</b>, nunca en la articulación del hombro.','Sostén 30 segundos respirando tranquilo. Sin rebotes ni tirones.'],
+ serie:'2 × 30 segundos por lado',tag:'Clave hombro',tagc:'w'};
+var EST_DORSAL={img:'estira-dorsal',nm:'Estiramiento de espalda en cuadrupedia',
+ que:'<b>Qué es:</b> de rodillas, llevas las manos adelante y el pecho al suelo. <b>Para qué sirve:</b> descarga la espalda alta y el dorsal después de jalones y remos, sin colgarte de nada.',
+ pasos:['De rodillas en la colchoneta, siéntate sobre los talones.','Estira los brazos hacia adelante y deja caer el pecho hacia el suelo.','<b>Detente antes de que el hombro moleste</b>: si aparece tirón en la articulación, sube un poco el pecho.'],
+ serie:'2 × 30 segundos',tag:'Vigila hombro',tagc:'w'};
+
+/* ====== LOS 4 DÍAS ====== */
+var DIAS=[
+{id:'A',cls:'',tit:'🦵 Pierna · cuádriceps',sub:'Lunes · 60-65 min + cierre libre · spinning',zona:'📍 Zona: máquinas de pierna',
+ resumen:'Todo en la zona de pierna · 2 superseries para no esperar máquina · cierre en bici.',
+ bloques:[
+ {f:1,tit:'🔥 Calentamiento general · 7-8 min',cls:'n',items:[CARDIOCAL,MOVIL]},
+ {f:1,tit:'🦴 Activación de hombro · 6-7 min',cls:'',items:[WALL,ROTEX,RETRA]},
+ {f:2,tit:'🦵 Cuádriceps y cadera · 38-40 min',cls:'v',items:[
+  {img:'pierna-leg-press',nm:'Leg press o prensa de piernas',
+   que:'<b>Qué es:</b> una máquina donde te sientas o recuestas y empujas una plataforma con los pies. <b>Para qué sirve:</b> es el ejercicio principal de pierna. Permite cargar mucho peso sin que los brazos ni el hombro participen.',
+   pasos:['Siéntate con la espalda y la cadera <b>bien pegadas al respaldo</b>.','Pon los pies en el centro de la plataforma, separados al ancho de los hombros.','Suelta los seguros laterales (las palancas a los lados del asiento).','Baja controlado hasta que las rodillas queden a unos 90°. <b>Si la cadera se despega del asiento, bajaste demasiado.</b>','Empuja con todo el pie y sube <b>sin bloquear la rodilla</b> del todo al final.'],
+   serie:'4 series × 12 repeticiones · 90 seg de descanso',
+   cue:'🫁 Exhala (suelta el aire) mientras empujas. Nunca aguantes la respiración: eso sube la presión arterial de golpe.',
+   planb:'🔁 Si está ocupada: sentadilla goblet con una mancuerna sostenida al pecho y los codos abajo, 4 × 12.'},
+  {ss:{lbl:'⚡ Superserie 1 — 1 máquina + peso corporal',end:'🔄 3 rondas. Haces A1 y enseguida A2 sin descansar; solo entonces descansas 90 seg. Aquí <b>solo A1 ocupa máquina</b>: la zancada se hace en cualquier pasillo libre.',exs:[
+   {img:'pierna-leg-extension',nm:'A1 · Leg extension (extensión de rodilla)',
+    que:'<b>Qué es:</b> sentado, subes un rodillo con los tobillos hasta estirar las piernas. <b>Para qué sirve:</b> aísla el cuádriceps, el músculo del frente del muslo. Muy útil para las rodillas.',
+    pasos:['Siéntate con la espalda apoyada y el <b>rodillo sobre los tobillos</b>, no sobre la mitad de la pierna.','Ajusta el respaldo hasta que la rodilla quede alineada con el eje de giro de la máquina.','Sube hasta casi estirar y aprieta el cuádriceps 1 segundo arriba.','Baja contando <b>3 segundos</b>. El tempo lento es el estímulo: no dejes que el peso caiga solo.'],
+    serie:'3 series × 15 repeticiones'},
+   {img:'pierna-zancada',nm:'A2 · Zancada hacia adelante',
+    que:'<b>Qué es:</b> un paso largo al frente bajando la rodilla de atrás. <b>Para qué sirve:</b> trabaja cada pierna por separado y mejora el equilibrio. No necesita ninguna máquina.',
+    pasos:['De pie, da un <b>paso largo</b> hacia adelante.','Baja hasta que la rodilla de atrás quede casi tocando el suelo.','La rodilla de adelante <b>no pasa la punta del pie</b>.','Empuja con el pie delantero para volver y cambia de pierna.','Si quieres carga, lleva <b>una sola mancuerna en la mano sana</b>.'],
+    serie:'3 series × 12 por pierna',tag:'Unilateral',tagc:'u'}]}},
+  {ss:{lbl:'⚡ Superserie 2 — 1 máquina + peso corporal',end:'🔄 3 rondas · 60 seg. Solo B1 ocupa máquina; la pared nunca está ocupada.',exs:[
+   {img:'pierna-abduccion',nm:'B1 · Abducción de cadera en máquina',
+    que:'<b>Qué es:</b> sentado, abres las piernas contra una resistencia. <b>Para qué sirve:</b> glúteo medio, el músculo lateral de la cadera que estabiliza la rodilla al caminar y al subir escaleras.',
+    pasos:['Siéntate con la espalda apoyada y las <b>almohadillas por fuera de los muslos</b>.','Abre las piernas apretando los glúteos laterales.','Vuelve <b>despacio</b>, sin dejar que el peso cierre las piernas solo.'],
+    serie:'3 series × 15-20 repeticiones'},
+   {img:'pierna-sentadilla-pared',nm:'B2 · Sentadilla isométrica en la pared',
+    que:'<b>Qué es:</b> quedarte "sentado" contra una pared sin silla. <b>Para qué sirve:</b> resistencia del cuádriceps sin cargar nada con los brazos. Cero riesgo para el hombro.',
+    pasos:['Espalda contra la pared, pies separados del muro.','Baja hasta que los <b>muslos queden paralelos al suelo</b>, como sentado en una silla invisible.','Brazos sueltos a los lados, no cruzados sobre el pecho.','Cuenta el tiempo <b>en voz baja</b>: es la forma de asegurarte de no aguantar el aire.'],
+    serie:'3 series × 30-40 segundos',
+    cue:'❤️ Si sientes presión en la cabeza o la cara caliente, sal de la posición antes de terminar el tiempo.'}]}},
+  TALONES]},
+ {f:2,tit:'💪 Core en el suelo · 6 min',cls:'m',items:[DEADBUG,PLANCHA]},
+ {f:3,tit:'🚴 Cardio de cierre · 15-20 min sugeridos',cls:'t',items:[
+  {img:'cardio-spinning',nm:'Spinning (bicicleta estática) · ritmo constante',
+   que:'<b>Qué es:</b> pedalear en una bicicleta fija con resistencia regulable. <b>Para qué sirve:</b> quema grasa sin impacto en las rodillas y ayuda al control de la presión arterial.',
+   pasos:['Ajusta el sillín a la altura de tu cadera: con el pedal abajo, la rodilla queda <b>casi</b> estirada.','Empieza 3 minutos con resistencia baja para calentar.','Sube a resistencia media y mantén una cadencia cómoda, sentado.','Debes poder <b>hablar en frases cortas</b> pero no cantar: ese es el ritmo correcto.','Últimos 3 minutos, baja la resistencia y pedalea suave para bajar pulsaciones.'],
+   serie:'15-18 minutos · esfuerzo 5-6/10',
+   cue:'🦴 Manos apoyadas suave en el manubrio, sin cargar peso sobre el hombro ni bloquear los codos.'}]},
+ {f:3,tit:'🧘 Estiramientos · 5-6 min',cls:'m',items:[EST_CUAD,EST_ISQ,EST_PECT]}]},
+
+{id:'B',cls:'v',tit:'🎣 Espalda y bíceps',sub:'Martes · 60-65 min + cierre libre · remo',zona:'📍 Zona: jalones, remos y poleas',
+ resumen:'Toda la espalda que sostiene tu hombro · brazos seguros · sin salir de la zona de jalones.',
+ bloques:[
+ {f:1,tit:'🔥 Calentamiento general · 7-8 min',cls:'n',items:[CARDIOCAL,MOVIL]},
+ {f:1,tit:'🦴 Activación de hombro · 6-7 min',cls:'',items:[PEND,SCAP,FACE]},
+ {f:2,tit:'🎣 Espalda y bíceps · 38-40 min',cls:'v',items:[
+  {img:'espalda-jalon',nm:'Jalón dorsal al pecho · agarre neutro o estrecho',
+   que:'<b>Qué es:</b> sentado, jalas una barra desde arriba hacia el pecho. <b>Para qué sirve:</b> construye toda la espalda ancha, que es literalmente el soporte de tu hombro.',
+   pasos:['Ajusta la almohadilla de los muslos para que las piernas queden firmes.','Usa el agarre <b>neutro</b> (palmas enfrentadas) o estrecho. Nunca el más ancho.','Siéntate con el pecho arriba y una ligera inclinación hacia atrás.','Jala hacia la parte alta del pecho llevando los <b>codos hacia abajo y atrás</b>.','Regresa controlado. Al final no dejes que el hombro se "cuelgue" hacia arriba.'],
+   serie:'4 series × 12 repeticiones · 90 seg',
+   cue:'🚫 Prohibido: agarre muy ancho, supinado pesado o jalón tras la nuca. Son los que más irritan tu hombro.',
+   planb:'🔁 Si está ocupado: empieza por el remo en máquina e invierte el orden del día.'},
+  {ss:{lbl:'⚡ Superserie 1 — 1 máquina + mancuernas',end:'🔄 3 rondas. Haces A1 y enseguida A2 sin descansar; solo entonces descansas 90 seg. Aquí <b>solo A1 ocupa máquina</b>: las mancuernas siempre están a mano. Si la máquina está tomada, arranca por el curl.',exs:[
+   {img:'espalda-remo-maquina',nm:'A1 · Remo en máquina (iso-lateral, agarre neutro)',
+    que:'<b>Qué es:</b> sentado con el pecho apoyado, jalas dos manerales hacia ti. <b>Para qué sirve:</b> espalda media. Como el pecho va apoyado, la espalda baja no sufre. "Iso-lateral" significa que cada brazo lleva su propio brazo de palanca.',
+    pasos:['Ajusta el asiento para que los manerales queden a la altura del <b>pecho medio</b>.','Pecho apoyado en el respaldo, agarre neutro (palmas enfrentadas).','Jala llevando los codos hacia atrás y <b>juntando los omóplatos</b> al final.','Los hombros van abajo todo el tiempo. <b>Si se te suben al jalar, el peso es demasiado.</b>','Al ser iso-lateral, puedes usar algo menos de peso del lado lesionado.'],
+    serie:'4 series × 12 repeticiones · deja 2-3 en reserva',
+    cue:'⚖️ Al ser iso-lateral, es tu mejor termómetro de <b>simetría</b>: si un lado se queda corto en repeticiones, iguala por el lado débil.'},
+   {img:'brazo-curl-martillo',nm:'A2 · Curl martillo alterno con mancuernas',
+    que:'<b>Qué es:</b> flexionar el codo con la mancuerna en vertical, como si sostuvieras un martillo. <b>Para qué sirve:</b> bíceps y antebrazo. Al moverse solo el codo, el hombro queda quieto: es de los ejercicios más seguros para ti.',
+    pasos:['De pie, una mancuerna en cada mano con los <b>pulgares hacia arriba</b>.','Codos pegados al costado y quietos durante todo el movimiento.','Sube una mancuerna, baja contando 3 segundos y alterna.','<b>No balancees el tronco</b> para ayudarte: si necesitas impulso, baja el peso.'],
+    serie:'3 series × 12 por brazo',tag:'Unilateral',tagc:'u'}]}},
+  {img:'espalda-remo-mancuerna',nm:'Remo con mancuerna apoyado en banco (un brazo)',
+   que:'<b>Qué es:</b> con una rodilla en un banco, jalas una mancuerna del suelo hacia la cadera. <b>Para qué sirve:</b> la misma espalda, pero <b>un lado a la vez</b>. Es el ejercicio clave del día para corregir la diferencia entre tu lado sano y el lesionado, que después de meses de cuidar el hombro casi siempre existe.',
+   pasos:['Apoya <b>rodilla y mano del mismo lado</b> en el banco; el otro pie en el suelo.','Espalda plana como una mesa, mirada al suelo.','Jala la mancuerna hacia la cadera con el <b>codo pegado al costado</b>.','Baja controlado sin dejar caer el hombro hacia adelante.','<b>Empieza siempre por el lado lesionado</b> y haz en el lado sano exactamente las mismas repeticiones, aunque te sobre fuerza.'],
+   serie:'3 series × 12 por lado',tag:'Unilateral',tagc:'u',
+   cue:'🎯 Con el codo pegado, este remo es seguro para tu hombro. Con el codo abierto hacia afuera, no lo es.'},
+  {ss:{lbl:'⚡ Superserie 2 — 1 máquina + barra',end:'🔄 3 rondas · 60 seg. Solo B1 ocupa máquina; la barra Z se toma del rack y se deja al lado.',exs:[
+   {img:'espalda-lumbar',nm:'B1 · Extensiones de espalda baja en máquina',
+    que:'<b>Qué es:</b> sentado, empujas hacia atrás con la espalda contra una almohadilla. <b>Para qué sirve:</b> fortalece la zona lumbar, que es lo que previene dolores de espalda al cargar pierna.',
+    pasos:['Siéntate y ajusta la almohadilla a la altura de la espalda alta.','Empuja hacia atrás hasta <b>alinear el tronco con las piernas</b>, sin pasarte ni arquear de más.','Sostén 1 segundo y regresa despacio.'],
+    serie:'3 series × 15 repeticiones',
+    cue:'❤️ Nunca lleves este ejercicio al fallo ni contengas el aire: la zona lumbar con carga y apnea es de las peores combinaciones para la presión arterial.'},
+   {img:'brazo-curl-z',nm:'B2 · Curl de bíceps con barra Z',
+    que:'<b>Qué es:</b> la barra ondulada del rack de barras. <b>Para qué sirve:</b> bíceps con ambos brazos a la vez; su forma ondulada evita que las muñecas queden forzadas.',
+    pasos:['De pie, toma la barra por las curvas, con las palmas hacia arriba.','Codos pegados al costado y quietos.','Sube sin usar la espalda y baja contando 3 segundos.'],
+    serie:'3 series × 12 repeticiones',
+    planb:'🔁 Si no hay barra Z libre: curl concentrado con mancuerna sentado, 3 × 12 por brazo.'}]}}]},
+ {f:2,tit:'💪 Core en el suelo · 6 min',cls:'m',items:[DEADBUG,PLANCHA]},
+ {f:3,tit:'🚣 Cardio de cierre · 15-20 min sugeridos',cls:'t',items:[
+  {img:'cardio-remo',nm:'Máquina de remo 12 min + caminadora 5 min',
+   que:'<b>Qué es:</b> una máquina en la que te sientas y jalas un maneral deslizándote hacia atrás. <b>Para qué sirve:</b> cardio de cuerpo completo. El orden del movimiento importa mucho para no cargar el hombro.',
+   pasos:['Ajusta las correas de los pies y toma el maneral con los brazos estirados.','<b>Primero empujan las piernas</b>, después se inclina el tronco y <b>por último jalan los brazos</b>.','Los codos van bajos y cerca del cuerpo. Nunca lleves el maneral por encima del pecho.','Regresa en el orden inverso: brazos, tronco, piernas.','Ritmo suave y constante 12 minutos, y cierra caminando 5 minutos.'],
+   serie:'12 + 5 minutos · esfuerzo 5-6/10',
+   cue:'⚠️ Si el remo te deja el hombro molesto al día siguiente, cámbialo por elíptica sin usar los brazos móviles.'}]},
+ {f:3,tit:'🧘 Estiramientos · 5-6 min',cls:'m',items:[EST_DORSAL,EST_PECT]}]},
+
+{id:'C',cls:'n',tit:'🍑 Glúteo, isquios y pantorrilla',sub:'Jueves · 60-65 min + cierre libre · elíptica',zona:'📍 Zona: máquinas de pierna + colchoneta',
+ resumen:'Glúteo e isquios, la parte que más protege rodillas y espalda · máquina y colchoneta, misma zona.',
+ bloques:[
+ {f:1,tit:'🔥 Calentamiento general · 7-8 min',cls:'n',items:[CARDIOCAL,MOVIL]},
+ {f:1,tit:'🦴 Activación de hombro · 6-7 min',cls:'',items:[WALL,ROTEX,RETRA]},
+ {f:2,tit:'🍑 Cadena posterior · 38-40 min',cls:'v',items:[
+  {img:'pierna-leg-curl',nm:'Leg curl · flexión de rodilla (máquina)',
+   que:'<b>Qué es:</b> sentado o acostado, jalas un rodillo con los talones doblando las rodillas. <b>Para qué sirve:</b> isquiotibiales, la parte de atrás del muslo. Es el músculo que protege la rodilla y equilibra tanta prensa.',
+   pasos:['Ajusta el rodillo justo por <b>encima de los talones</b>, no sobre el tendón.','Cadera pegada al asiento; agárrate de los manerales laterales.','Jala los talones hacia atrás doblando las rodillas.','Regresa <b>muy lento, contando 4 segundos</b>: los isquios se entrenan en la bajada.','No despegues la cadera para ayudarte.'],
+   serie:'4 series × 12 repeticiones · 90 seg',
+   planb:'🔁 Si está ocupada: peso muerto rumano con mancuernas <b>ligeras</b> — brazos colgando relajados, la espalda no se redondea nunca — 4 × 12.'},
+  {ss:{lbl:'⚡ Superserie 1 — 1 máquina + suelo',end:'🔄 3 rondas · 90 seg. Solo A1 ocupa máquina; la colchoneta siempre está libre, así que si hay cola empieza por A2.',exs:[
+   {img:'gluteo-patada',nm:'A1 · Patada de glúteo en máquina',
+    que:'<b>Qué es:</b> de pie o apoyado, empujas una palanca hacia atrás con una pierna. <b>Para qué sirve:</b> glúteo mayor, pierna por pierna.',
+    pasos:['Apoya el tronco en el soporte y coloca el pie en la plataforma.','Lleva la pierna hacia atrás <b>desde la cadera</b>, no desde la espalda.','Aprieta el glúteo 1 segundo al final del recorrido.','<b>No arquees la espalda baja</b> para ganar más recorrido: si se arquea, el rango es demasiado.'],
+    serie:'3 series × 15 por pierna'},
+   {img:'gluteo-puente-1p',nm:'A2 · Puente de glúteo a una pierna',
+    que:'<b>Qué es:</b> boca arriba en la colchoneta, subes la cadera apoyando un solo pie. <b>Para qué sirve:</b> glúteo mayor, <b>un lado a la vez</b> y sin ninguna carga sobre el hombro. Es donde se ve —y se corrige— la diferencia entre tu lado fuerte y el débil.',
+    pasos:['Boca arriba, un pie apoyado y la <b>otra pierna estirada</b> al frente.','Sube la cadera empujando con el talón del pie apoyado y aprieta el glúteo 2 segundos.','La cadera <b>no se inclina hacia un lado</b>: si se cae, es que el glúteo de ese lado no aguanta.','Empieza por el lado más débil e iguala repeticiones con el otro.'],
+    serie:'3 series × 10 por pierna',tag:'Unilateral',tagc:'u',
+    planb:'🔁 Si todavía se te cae la cadera: hazlo con las dos piernas apoyadas, 3 × 15, y pasa a una pierna cuando lo controles.'}]}},
+  {ss:{lbl:'⚡ Superserie 2 — 1 máquina + core en el suelo',end:'🔄 3 rondas · 60 seg. Solo B1 ocupa máquina; el dead bug se hace en la colchoneta de al lado.',exs:[
+   {img:'pierna-abduccion',nm:'B1 · Abducción de cadera en máquina',
+    que:'<b>Qué es:</b> sentado, abres las piernas contra la resistencia. <b>Para qué sirve:</b> glúteo medio, el estabilizador lateral de la cadera.',
+    pasos:['Espalda apoyada, almohadillas por fuera de los muslos.','Abre apretando los glúteos laterales.','Vuelve despacio, sin dejar que el peso cierre las piernas solo.'],
+    serie:'3 series × 15-20 repeticiones'},
+   {img:'core-deadbug',nm:'B2 · Dead bug (core)',
+    que:'<b>Qué es:</b> un ejercicio de abdomen en el suelo, boca arriba. <b>Para qué sirve:</b> aquí cumple doble función: entrena el abdomen y le da descanso activo a la cadera entre serie y serie de la máquina. Cero carga sobre el hombro.',
+    pasos:['Boca arriba, brazos apuntando al techo y rodillas dobladas a 90° en el aire.','Aprieta el abdomen para pegar la <b>espalda baja al suelo</b>: esa presión no se pierde nunca.','Baja un brazo hacia atrás y la pierna contraria hacia adelante, sin tocar el suelo.','Vuelve despacio y cambia de lado. Respira de forma continua.'],
+    serie:'3 series × 8 por lado',tag:'Core',tagc:'m2'}]}},
+  {img:'pierna-prensa-pies-altos',nm:'Prensa con los pies altos',
+   que:'<b>Qué es:</b> la misma leg press del lunes, pero con los pies colocados más arriba en la plataforma. <b>Para qué sirve:</b> ese pequeño cambio traslada el trabajo del cuádriceps al glúteo y los isquios.',
+   pasos:['Coloca los pies <b>en la parte alta</b> de la plataforma, al ancho de los hombros.','Cadera pegada al asiento durante todo el movimiento.','Baja controlado y empuja con todo el pie, sin bloquear la rodilla.'],
+   serie:'3 series × 12 repeticiones',
+   cue:'🫁 Exhala al empujar. Si sientes la cara caliente o presión en la cabeza, baja el peso.',
+   planb:'🔁 Si está ocupada: zancada hacia atrás con mancuerna en la mano sana, 3 × 12 por pierna.'},
+  TALONES]},
+ {f:2,tit:'💪 Core en el suelo · 6 min',cls:'m',items:[
+  {img:'core-circulos',nm:'Círculos en supino',
+   que:'<b>Qué es:</b> boca arriba, dibujas círculos pequeños con el brazo estirado. <b>Para qué sirve:</b> control del omóplato con la espalda protegida por el suelo. Es rehabilitación disfrazada de core.',
+   pasos:['Boca arriba, un brazo apuntando al techo.','Dibuja <b>círculos pequeños</b> y lentos, primero en un sentido y luego en el otro.','La espalda baja permanece pegada al suelo todo el tiempo.'],
+   serie:'2 series × 10 por sentido'},DEADBUG]},
+ {f:3,tit:'🏃 Cardio de cierre · 15-20 min sugeridos',cls:'t',items:[
+  {img:'cardio-eliptica',nm:'Elíptica · cambios suaves de ritmo',
+   que:'<b>Qué es:</b> una máquina en la que caminas en el aire con los pies siempre apoyados. <b>Para qué sirve:</b> cardio sin impacto para rodillas ni tobillos.',
+   pasos:['Sube con cuidado y empieza con resistencia baja.','4 minutos suaves de entrada.','Luego 6 bloques de: 1 minuto un poco más rápido + 1 minuto suave.','Cierra con 2 minutos muy suaves.'],
+   serie:'16 minutos · picos de 6-7/10',
+   cue:'🦴 No agarres fuerte los brazos móviles: si el hombro lo prefiere, apoya las manos en los manerales fijos.'}]},
+ {f:3,tit:'🧘 Estiramientos · 5-6 min',cls:'m',items:[EST_ISQ,EST_CUAD,EST_PECT]}]},
+
+{id:'D',cls:'m',tit:'🫱 Pecho, hombro y tríceps',sub:'Sábado · 60-65 min + cierre libre · caminadora',zona:'📍 Zona: máquinas de pecho y brazo',
+ resumen:'Empuje progresivo y bien vigilado · el día en que más hay que escuchar al hombro.',
+ bloques:[
+ {f:1,tit:'🔥 Calentamiento general · 7-8 min',cls:'n',items:[CARDIOCAL,MOVIL]},
+ {f:1,tit:'🦴 Activación de hombro · 6-7 min',cls:'',items:[WALL,SCAP,ROTEX]},
+ {f:2,tit:'🫱 Empuje controlado · 36-38 min',cls:'v',items:[
+  {img:'pecho-chest-press',nm:'Chest press en máquina · recorrido corto',
+   que:'<b>Qué es:</b> sentado, empujas dos manerales hacia adelante. <b>Para qué sirve:</b> es tu forma segura de entrenar pecho: la máquina guía el movimiento y tú no tienes que estabilizar el peso con el hombro lesionado.',
+   pasos:['Ajusta el asiento para que los manerales queden a la altura del <b>pecho medio</b>.','Espalda apoyada, omóplatos "metidos" hacia atrás y abajo contra el respaldo.','Empuja hacia adelante sin bloquear los codos de golpe.','Regresa <b>solo hasta que los codos lleguen a la línea del tronco</b>: nunca más atrás.','Ese último tramo prohibido es justo el que estresa la parte delantera del hombro.'],
+   serie:'4 series × 12 repeticiones · 90 seg',tag:'Vigila hombro',tagc:'w',
+   cue:'🎯 Es tu ejercicio "termómetro": sube peso solo si al día siguiente no hay molestia.',
+   planb:'🔁 Si está ocupada: flexiones con las manos apoyadas en un banco alto, bajando solo hasta que los codos lleguen a la altura del tronco, 3 × 10.'},
+  {ss:{lbl:'⚡ Superserie 1 — 1 máquina + mancuerna',end:'🔄 3 rondas · 60 seg. Solo A1 ocupa máquina. Pecho y tríceps se llevan bien juntos: mientras uno trabaja, el otro descansa.',exs:[
+   {img:'pecho-aperturas',nm:'A1 · Aperturas en máquina (AMS pectorales) · rango parcial',
+    que:'<b>Qué es:</b> sentado, juntas dos brazos de la máquina al frente, como abrazando. <b>Para qué sirve:</b> pecho desde otro ángulo. En tu caso se hace <b>a medio recorrido</b>, porque la apertura completa es una de las posiciones que más irritan el hombro.',
+    pasos:['Ajusta el asiento para que los manerales queden a la altura del pecho.','Abre <b>solo hasta que las manos queden a la altura del pecho</b>, sin llevar los codos hacia atrás.','Cierra apretando el pectoral 1 segundo.','La sensación debe estar en el pecho. Si la sientes en el hombro, reduce el rango o el peso.'],
+    serie:'3 series × 12 repeticiones',tag:'Desde semana 3',tagc:'s'},
+   {img:'brazo-triceps-kickback',nm:'A2 · Patada de tríceps con mancuerna (kickback)',
+    que:'<b>Qué es:</b> inclinado hacia adelante, estiras el codo llevando la mancuerna hacia atrás. <b>Para qué sirve:</b> tríceps con una sola mancuerna, sin depender de ninguna máquina. El brazo va pegado al costado, así que el hombro no se eleva en ningún momento: es la versión más amable para ti.',
+    pasos:['Apoya rodilla y mano del lado contrario en un banco, espalda plana.','Lleva el <b>brazo pegado al costado</b>, con el codo doblado a 90°.','Estira solo el codo hacia atrás y aprieta el tríceps 1 segundo.','Vuelve controlado. El brazo <b>no se despega del costado</b> en ningún momento.'],
+    serie:'3 series × 12 por brazo',tag:'Unilateral',tagc:'u'}]}},
+  {ss:{lbl:'⚡ Superserie 2 — 1 máquina + suelo',end:'🔄 3 rondas · 60 seg. Solo B1 ocupa máquina. Durante el mes 1, cambia B1 por press de tríceps en máquina, 3 × 12.',exs:[
+   {img:'hombro-elevaciones-maquina',nm:'B1 · Elevaciones laterales en máquina · rango limitado',
+    que:'<b>Qué es:</b> sentado, subes los brazos hacia los lados contra unas almohadillas. <b>Para qué sirve:</b> deltoides lateral (la "bola" del hombro). Es el único ejercicio de elevación lateral que puedes hacer, y solo a medio recorrido.',
+    pasos:['Ajusta el asiento para que el hombro quede alineado con el eje de la máquina.','Sube <b>solo hasta un poco por debajo de la altura del hombro</b> (unos 70-80°).','Baja lento, sin balanceo.','Peso bajo: aquí se busca control, no récord.'],
+    serie:'3 series × 15 repeticiones',tag:'Desde semana 5',tagc:'s',
+    cue:'📅 Solo si el mes 1 pasó sin dolor. Si aparece molestia, vuelve al scaption y déjalo para más adelante.'},
+   PLANCHA]}},
+  {img:'brazo-triceps-polea',nm:'Extensión de codo en polea, agarre "V"',
+   que:'<b>Qué es:</b> de pie frente a una polea alta, empujas un maneral en forma de V hacia abajo. <b>Para qué sirve:</b> remata el tríceps con resistencia constante. Va suelto, no en superserie, para que no dependas de tener dos máquinas libres a la vez.',
+   pasos:['Polea en la posición alta, con el maneral en V.','De pie cerca de la máquina, <b>codos pegados al costado y quietos</b>.','Solo se mueve el antebrazo: empuja hacia abajo y aprieta el tríceps 1 segundo.','Sube controlado sin dejar que los codos se despeguen.'],
+   serie:'3 series × 15 repeticiones · última serie al límite del control',
+   cue:'🚫 La versión "por encima de la cabeza" queda fuera: mantiene el hombro en flexión sostenida y te lo irrita.'},
+]},
+ {f:2,tit:'💪 Core · 6 min',cls:'m',items:[
+  {img:'core-crunch-maquina',nm:'Crunch en máquina',
+   que:'<b>Qué es:</b> sentado, enrollas el tronco hacia adelante contra una resistencia. <b>Para qué sirve:</b> abdomen con carga regulable y con la espalda apoyada.',
+   pasos:['Ajusta el asiento y toma los manerales sin jalar con los brazos.','<b>Enrolla el tronco</b> llevando las costillas hacia la pelvis.','No jales del cuello ni uses impulso. Vuelve lento.'],
+   serie:'3 series × 15 repeticiones',
+   planb:'🔁 Si está ocupada: crunch en colchoneta con las manos sobre el pecho, 3 × 20.'},DEADBUG]},
+ {f:3,tit:'🚶 Cardio de cierre · 15-20 min sugeridos',cls:'t',items:[
+  {img:'cardio-caminadora',nm:'Caminadora en pendiente',
+   que:'<b>Qué es:</b> caminar rápido en cinta con inclinación. <b>Para qué sirve:</b> es el cardio que más grasa moviliza con menos impacto para rodillas y hombro.',
+   pasos:['Empieza caminando 3 minutos en plano para calentar.','Sube la inclinación a <b>6-9%</b> y ajusta la velocidad a caminata rápida.','<b>No te agarres de las barras</b>: agarrarse reduce el gasto y carga el hombro.','Mantén 12 minutos a un ritmo en el que puedas hablar en frases cortas.','Baja la inclinación y camina suave los últimos 3 minutos.'],
+   serie:'18 minutos · esfuerzo 5-6/10'}]},
+ {f:3,tit:'🧘 Estiramientos · 6-8 min',cls:'m',items:[EST_PECT,EST_DORSAL,EST_CUAD]}]}
+];
+/* ====== RENDERIZADO ====== */
+var FASES={
+1:{nm:'Calentamiento',ico:'🔥',min:'13-15 min',txt:'Preparar el cuerpo. Nunca se salta: entrar en frío es donde ocurren las lesiones, y con presión arterial evita el salto brusco.'},
+2:{nm:'Bloque central',ico:'🏋️',min:'45-50 min',txt:'El trabajo de fuerza del día. Aquí está el estímulo que cambia tu cuerpo. Si vas corto de tiempo, se recorta aquí una serie, nunca la fase 1.'},
+3:{nm:'Cierre',ico:'🧘',min:'20-28 min · libre',txt:'Cardio y estiramientos. El tiempo es flexible: son los mínimos sugeridos, y puedes extender el cardio si el día lo permite.'}};
+
+function foto(e){
+  return '<div class="foto"><img src="img/'+e.img+'.jpg" alt="'+e.nm.replace(/<[^>]+>/g,'')+'" loading="lazy" '+
+    'onerror="this.style.display=\'none\';this.parentNode.querySelector(\'.phbox\').style.display=\'flex\'">'+
+    '<div class="phbox" style="display:none"><span class="cam">📷</span><span>Aquí va la foto de este ejercicio</span>'+
+    '<code>img/'+e.img+'.jpg</code></div></div>';
+}
+function exHTML(e,n){
+  var t=e.tag?'<span class="tag '+(e.tagc||'')+'">'+e.tag+'</span>':'';
+  var h='<div class="exc"><div class="exhd"><span class="num">'+n+'</span><div class="exttl"><b>'+e.nm+'</b>'+
+        '<span class="serie">'+e.serie+'</span></div>'+t+
+        '<button class="chk" aria-label="Marcar como hecho">✓</button></div>';
+  h+=foto(e);
+  h+='<div class="exbody"><div class="que">'+e.que+'</div><ol class="pasos">';
+  e.pasos.forEach(function(p){h+='<li>'+p+'</li>';});
+  h+='</ol>';
+  if(e.cue)h+='<div class="cue">'+e.cue+'</div>';
+  if(e.planb)h+='<div class="planb">'+e.planb+'</div>';
+  h+='<div class="exfoot"><button class="tmr" data-s="60">⏱ 60 s</button><button class="tmr" data-s="90">⏱ 90 s</button></div>';
+  h+='</div></div>';
+  return h;
+}
+var imgs=[];
+function collect(e){if(imgs.indexOf(e.img)<0)imgs.push(e.img);}
+
+var html='';
+DIAS.forEach(function(d,di){
+  html+='<div class="card"><button class="dayhdr'+(di===0?' on':'')+'"><span class="chip '+d.cls+'">'+d.id+'</span>'+
+        '<span class="daytit"><b>'+d.tit+'</b><span>'+d.sub+'</span></span><span class="arrow">▾</span></button>'+
+        '<div class="daybody'+(di===0?' on':'')+'"><span class="zona">'+d.zona+'</span>'+
+        '<div class="prog"><div class="progbar"><i style="width:0%"></i></div><span class="progtxt">0 de 0 completados</span></div>';
+  var n=0,fa=0;
+  d.bloques.forEach(function(b){
+    if(b.f!==fa){fa=b.f;var F=FASES[fa];
+      html+='<div class="fase f'+fa+'"><div class="fasehd"><span class="fasenum">FASE '+fa+'</span>'+
+            '<b>'+F.ico+' '+F.nm+'</b><span class="fasemin">'+F.min+'</span></div>'+
+            '<span class="fasetxt">'+F.txt+'</span></div>';}
+    html+='<div class="block f'+fa+'"><div class="blocktit '+b.cls+'">'+b.tit+'</div>';
+    b.items.forEach(function(it){
+      if(it.ss){
+        html+='<div class="ss"><div class="sslbl">'+it.ss.lbl+'</div>';
+        it.ss.exs.forEach(function(e){n++;collect(e);html+=exHTML(e,n);});
+        html+='<div class="ssend">'+it.ss.end+'</div></div>';
+      }else{n++;collect(it);html+=exHTML(it,n);}
+    });
+    html+='</div>';
+  });
+  html+='<div class="resume">📋 <b>Día '+d.id+':</b> '+d.resumen+'</div></div></div>';
+});
+html+='<div class="card"><button class="dayhdr"><span class="chip g">OFF</span><span class="daytit"><b>🛌 Miércoles, viernes y domingo</b><span>Descanso y recuperación</span></span><span class="arrow">▾</span></button>'+
+      '<div class="daybody"><div class="info verde" style="margin-top:14px">'+
+      '✅ <b>Miércoles y viernes:</b> caminata de 30-40 minutos a paso vivo. No cuenta como entrenamiento, cuenta como pasos: son los que sostienen el déficit sin cansarte de más.<br><br>'+
+      '✅ <b>Domingo:</b> descanso total. Dormir 7-8 horas, hidratación y proteína en cada comida.<br><br>'+
+      '✅ Estiramientos suaves de cuádriceps y pectoral si lo deseas, sin forzar.<br><br>'+
+      '❌ Nada de "recuperar" un día perdido metiendo dos sesiones seguidas.</div></div></div>';
+document.getElementById('dias').innerHTML=html;
+
+var li='';
+imgs.forEach(function(i){li+='<div class="gl"><b>img/'+i+'.jpg</b><span>'+i.replace(/-/g,' ')+'</span></div>';});
+document.getElementById('listaimg').innerHTML=li;
+
+/* ====== PROGRESO ====== */
+function prog(body){
+  var tot=body.querySelectorAll('.exc').length;
+  var hechos=body.querySelectorAll('.exc.done').length;
+  body.querySelector('.progbar i').style.width=(tot?Math.round(hechos*100/tot):0)+'%';
+  body.querySelector('.progtxt').textContent=hechos+' de '+tot+' completados';
+}
+document.querySelectorAll('.daybody').forEach(function(b){if(b.querySelector('.progbar'))prog(b);});
+
+/* ====== TEMPORIZADOR DE DESCANSO ====== */
+var T={s:0,id:null};
+var bar=document.getElementById('timer');
+function pinta(){
+  var m=Math.floor(T.s/60),s=T.s%60;
+  document.getElementById('tnum').textContent=m+':'+(s<10?'0':'')+s;
+}
+function paraT(){if(T.id){clearInterval(T.id);T.id=null;}bar.classList.remove('on');}
+function arranca(seg){
+  T.s=seg;pinta();bar.classList.add('on');
+  if(T.id)clearInterval(T.id);
+  T.id=setInterval(function(){
+    T.s--;pinta();
+    if(T.s<=0){clearInterval(T.id);T.id=null;document.getElementById('tnum').textContent='¡Listo!';
+      bar.classList.add('fin');setTimeout(function(){bar.classList.remove('fin');paraT();},2500);}
+  },1000);
+}
+
+/* ====== INTERACCIÓN ====== */
+document.getElementById('tabs').addEventListener('click',function(e){
+  var b=e.target.closest('.tab'); if(!b) return;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on')});
+  document.querySelectorAll('.sec').forEach(function(s){s.classList.remove('on')});
+  b.classList.add('on');
+  document.getElementById(b.dataset.s).classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+document.body.addEventListener('click',function(e){
+  var h=e.target.closest('.dayhdr');
+  if(h){h.classList.toggle('on');h.nextElementSibling.classList.toggle('on');return;}
+  var t=e.target.closest('.tmr');
+  if(t){arranca(parseInt(t.dataset.s,10));return;}
+  if(e.target.id==='tstop'){paraT();return;}
+  var c=e.target.closest('.chk');
+  if(c){var ex=c.closest('.exc');ex.classList.toggle('done');
+    var body=c.closest('.daybody');if(body)prog(body);}
+});
+
+</script>
+</body>
+</html>
